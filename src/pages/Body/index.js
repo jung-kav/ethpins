@@ -187,19 +187,6 @@ export default function Body({
               Learn more
             </a>
           </div>
-          {/* <SubInfo>
-            A Unisocks fork.{' '}
-            <a
-              href="/"
-              onClick={e => {
-                e.preventDefault()
-                setState(state => ({ ...state, visible: !state.visible }))
-                setShowWorks(true)
-              }}
-            >
-              Credit to Uniswap team.
-            </a>
-          </SubInfo> */}
         </Info>
         <BuyButtons balanceSOCKS={balanceSOCKS} />
         <RedeemButton balanceSOCKS={balanceSOCKS} />
