@@ -24,9 +24,9 @@ export function Header({ totalSupply, ready, balanceSOCKS, setShowConnect }) {
       <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
         <Unicorn>
           <span role="img" aria-label="unicorn">
-            🦄
+            🦖
           </span>{' '}
-          Unisocks
+          ETHpins
         </Unicorn>
       </Link>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -36,7 +36,7 @@ export function Header({ totalSupply, ready, balanceSOCKS, setShowConnect }) {
               <span role="img" aria-label="fire">
                 🔥
               </span>{' '}
-              {500 - totalSupply} <HideMobile>redeemed</HideMobile>
+              {1000 - totalSupply} <HideMobile>redeemed</HideMobile>
             </Burned>
           </Link>
         )}
@@ -173,7 +173,7 @@ export default function Body({
       <Content>
         <Card totalSupply={totalSupply} dollarPrice={dollarPrice} reserveSOCKSToken={reserveSOCKSToken} />{' '}
         <Info>
-          <div style={{ marginBottom: '4px' }}>Buy and sell real socks with digital currency.</div>
+          <div style={{ marginBottom: '4px' }}>Buy and sell limited edition pins with digital currency.</div>
           <div style={{ marginBottom: '4px' }}>
             Delivered on demand.{' '}
             <a
@@ -188,7 +188,7 @@ export default function Body({
             </a>
           </div>
           {/* <SubInfo>
-            An experiment in pricing and user experience by the team at Uniswap.{' '}
+            A Unisocks fork.{' '}
             <a
               href="/"
               onClick={e => {
@@ -197,7 +197,7 @@ export default function Body({
                 setShowWorks(true)
               }}
             >
-              How it works.
+              Credit to Uniswap team.
             </a>
           </SubInfo> */}
         </Info>
