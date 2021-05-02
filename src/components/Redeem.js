@@ -140,7 +140,7 @@ export default function Redeem({
             <InfoFrame hasPickedAmount={hasPickedAmount}>
               <ImgStyle src={pac} alt="Logo" hasPickedAmount={hasPickedAmount} />
               <Owned>
-                <p>{state.count} Unisocks</p>
+                <p>{state.count} Ethpins</p>
                 <p style={{ fontSize: '20px', fontWeight: '400', color: '#AEAEAE' }}>One size fits most</p>
                 <p style={{ fontSize: '14px', fontWeight: '500', marginTop: '16px', color: '#AEAEAE' }}>Edition 0</p>
               </Owned>
@@ -175,7 +175,7 @@ export default function Redeem({
             <InfoFrame hasPickedAmount={hasPickedAmount}>
               <ImgStyle src={pac} alt="Logo" hasPickedAmount={hasPickedAmount} />
               <Owned>
-                <p style={{ fontSize: '18px' }}>{state.count} Unisocks</p>
+                <p style={{ fontSize: '18px' }}>{state.count} Ethpins</p>
                 <p style={{ fontSize: '14px', fontWeight: '500' }}>One size fits most</p>
                 <p
                   style={{
@@ -194,7 +194,7 @@ export default function Redeem({
               <ImgStyle src={pac} alt="Logo" hasPickedAmount={hasPickedAmount} />
               <Bonus>Bonus</Bonus>
               <Owned>
-                <p style={{ fontSize: '18px' }}>{state.count} Unisocks NFT</p>
+                <p style={{ fontSize: '18px' }}>{state.count} Ethpins NFT</p>
                 <p style={{ fontSize: '14px', fontWeight: '500' }}>Digital Collectible (10kb)</p>
                 <p
                   style={{

@@ -1,6 +1,6 @@
 {
-  "name": "unisocks",
-  "version": "0.1.0",
+  "name": "ethpins",
+  "version": "1.0.0-beta.0",
   "private": true,
   "dependencies": {
     "@walletconnect/web3-subprovider": "^1.4.1",
