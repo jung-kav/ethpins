@@ -17,7 +17,7 @@ export default function Body({ totalSupply, reserveSOCKSToken, ready, balanceSOC
             <span role="img" aria-label="socks">
               📌
             </span>
-            Initial ETHpins
+            Initial Ethpins
           </p>
           <p>1000</p>
         </Description>
@@ -26,7 +26,7 @@ export default function Body({ totalSupply, reserveSOCKSToken, ready, balanceSOC
             <span role="img" aria-label="socks">
               🔥
             </span>
-            Redeemed ETHpins
+            Redeemed Ethpins
           </p>
           <p>{1000 - totalSupply}</p>
         </Description>
@@ -44,11 +44,7 @@ export default function Body({ totalSupply, reserveSOCKSToken, ready, balanceSOC
           The price of ETHpin changes when tokens are bought and sold.
           <br />
           <br />
-          <a
-            href="https://medium.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://medium.com/" target="_blank" rel="noopener noreferrer">
             Read more.
           </a>
         </Footer>
