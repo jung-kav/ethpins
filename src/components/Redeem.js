@@ -93,7 +93,7 @@ export default function Redeem({
         <ButtonFrame
           className="button"
           disabled={false}
-          text={account === null ? 'Connect Wallet' : 'Redeem SOCKS'}
+          text={account === null ? 'Connect Wallet' : 'Redeem PINO'}
           type={'cta'}
           onClick={() => {
             setConnector('Injected', { suppressAndThrowErrors: true }).catch(() => {
@@ -111,7 +111,7 @@ export default function Redeem({
             <InfoFrame pending={pending}>
               <Owned>
                 <SockCount>You own {balanceSOCKS && `${amountFormatter(balanceSOCKS, 18, 0)}`}</SockCount>
-                <p>Redeem SOCKS</p>
+                <p>Redeem PINO</p>
               </Owned>
               <IncrementToken
                 initialValue={Number(amountFormatter(balanceSOCKS, 18, 0))}
@@ -219,13 +219,13 @@ export default function Redeem({
             back
           </Back>
           <Count>2/3</Count>
-          <CheckoutPrompt>BURN THE SOCKS?</CheckoutPrompt> */}
+          <CheckoutPrompt>BURN THE PINO?</CheckoutPrompt> */}
           <ButtonFrame
             className="button"
             disabled={pending}
             pending={pending}
-            // text={pending ? `Waiting for confirmation...` : `Redeem ${numberBurned} SOCKS`}
-            text={pending ? `Waiting for confirmation...` : `Place order (Redeem ${numberBurned} SOCKS) `}
+            // text={pending ? `Waiting for confirmation...` : `Redeem ${numberBurned} PINO`}
+            text={pending ? `Waiting for confirmation...` : `Place order (Redeem ${numberBurned} PINO) `}
             type={'cta'}
             onClick={() => {
               burn(numberBurned.toString())
