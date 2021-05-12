@@ -67,7 +67,7 @@ export default function Works({ closeCheckout }) {
       <Title>Unipay:</Title>
       <Desc>
         Buying or selling socks uses the uniswap protocol and accepts any token input as a payment method. The pool of
-        PINO is a uniswap pool where 500 PINO tokens were deposited along with the starting value of ETH.{' '}
+        PINO is a uniswap pool where 1000 PINO tokens were deposited along with the starting value of ETH.{' '}
       </Desc>
       <Desc>
         <a href="https://docs.uniswap.io/" target="_blank" rel="noopener noreferrer">
