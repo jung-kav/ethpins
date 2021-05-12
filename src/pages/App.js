@@ -14,15 +14,15 @@ const { NetworkOnlyConnector, InjectedConnector, WalletConnectConnector } = Conn
 const Network = new NetworkOnlyConnector({
   providerURL: PROVIDER_URL
 })
-const Injected = new InjectedConnector({ supportedNetworks: [1] })
+const Injected = new InjectedConnector({ supportedNetworks: [3] })
 const WalletConnect = new WalletConnectConnector({
   api: WalletConnectApi,
   bridge: 'https://bridge.walletconnect.org',
   supportedNetworkURLs: {
-    1: PROVIDER_URL
+    3: PROVIDER_URL
   },
   infuraId: process.env.REACT_APP_INFURA_PROJECT_ID || '',
-  defaultNetwork: 1
+  defaultNetwork: 3
 })
 const connectors = { Network, Injected, WalletConnect }
 
