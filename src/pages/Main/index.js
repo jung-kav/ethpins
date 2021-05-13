@@ -82,15 +82,15 @@ function getExchangeRate(inputValue, outputValue, invert = false) {
 function calculateAmount(
   inputTokenSymbol,
   outputTokenSymbol,
-  SOCKSAmount,
-  reserveSOCKSETH,
-  reserveSOCKSToken,
+  PINOAmount,
+  reservePINOETH,
+  reservePINOToken,
   reserveSelectedTokenETH,
   reserveSelectedTokenToken
 ) {
   // eth to token - buy
   if (inputTokenSymbol === TOKEN_SYMBOLS.ETH && outputTokenSymbol === TOKEN_SYMBOLS.PINO) {
-    const amount = calculateEtherTokenInputFromOutput(SOCKSAmount, reserveSOCKSETH, reserveSOCKSToken)
+    const amount = calculateEtherTokenInputFromOutput(PINOAmount, reservePINOETH, reservePINOToken)
     if (amount.lte(ethers.constants.Zero) || amount.gte(ethers.constants.MaxUint256)) {
       throw Error()
     }
@@ -99,7 +99,7 @@ function calculateAmount(
 
   // token to eth - sell
   if (inputTokenSymbol === TOKEN_SYMBOLS.PINO && outputTokenSymbol === TOKEN_SYMBOLS.ETH) {
-    const amount = calculateEtherTokenOutputFromInput(SOCKSAmount, reserveSOCKSToken, reserveSOCKSETH)
+    const amount = calculateEtherTokenOutputFromInput(PINOAmount, reservePINOToken, reservePINOETH)
     if (amount.lte(ethers.constants.Zero) || amount.gte(ethers.constants.MaxUint256)) {
       throw Error()
     }
@@ -108,11 +108,11 @@ function calculateAmount(
   }
 
   // token to token - buy or sell
-  const buyingSOCKS = outputTokenSymbol === TOKEN_SYMBOLS.PINO
+  const buyingPINO = outputTokenSymbol === TOKEN_SYMBOLS.PINO
 
-  if (buyingSOCKS) {
+  if (buyingPINO) {
     // eth needed to buy x socks
-    const intermediateValue = calculateEtherTokenInputFromOutput(SOCKSAmount, reserveSOCKSETH, reserveSOCKSToken)
+    const intermediateValue = calculateEtherTokenInputFromOutput(PINOAmount, reservePINOETH, reservePINOToken)
     // calculateEtherTokenOutputFromInput
     if (intermediateValue.lte(ethers.constants.Zero) || intermediateValue.gte(ethers.constants.MaxUint256)) {
       throw Error()
@@ -129,7 +129,7 @@ function calculateAmount(
     return amount
   } else {
     // eth gained from selling x socks
-    const intermediateValue = calculateEtherTokenOutputFromInput(SOCKSAmount, reserveSOCKSToken, reserveSOCKSETH)
+    const intermediateValue = calculateEtherTokenOutputFromInput(PINOAmount, reservePINOToken, reservePINOETH)
     if (intermediateValue.lte(ethers.constants.Zero) || intermediateValue.gte(ethers.constants.MaxUint256)) {
       throw Error()
     }
@@ -153,34 +153,34 @@ export default function Main({ stats, status }) {
   const [selectedTokenSymbol, setSelectedTokenSymbol] = useState(TOKEN_SYMBOLS.ETH)
 
   // get exchange contracts
-  const exchangeContractSOCKS = useExchangeContract(TOKEN_ADDRESSES.PINO)
+  const exchangeContractPINO = useExchangeContract(TOKEN_ADDRESSES.PINO)
   const exchangeContractSelectedToken = useExchangeContract(TOKEN_ADDRESSES[selectedTokenSymbol])
   const exchangeContractDAI = useExchangeContract(TOKEN_ADDRESSES.DAI)
 
   // get token contracts
-  const tokenContractSOCKS = useTokenContract(TOKEN_ADDRESSES.PINO)
+  const tokenContractPINO = useTokenContract(TOKEN_ADDRESSES.PINO)
   const tokenContractSelectedToken = useTokenContract(TOKEN_ADDRESSES[selectedTokenSymbol])
 
   // get balances
   const balanceETH = useAddressBalance(account, TOKEN_ADDRESSES.ETH)
-  const balanceSOCKS = useAddressBalance(account, TOKEN_ADDRESSES.PINO)
+  const balancePINO = useAddressBalance(account, TOKEN_ADDRESSES.PINO)
   const balanceSelectedToken = useAddressBalance(account, TOKEN_ADDRESSES[selectedTokenSymbol])
 
   // totalsupply
-  const totalSupply = useTotalSupply(tokenContractSOCKS)
+  const totalSupply = useTotalSupply(tokenContractPINO)
 
   // get allowances
-  const allowanceSOCKS = useAddressAllowance(
+  const allowancePINO = useAddressAllowance(
     account,
     TOKEN_ADDRESSES.PINO,
-    exchangeContractSOCKS && exchangeContractSOCKS.address
+    exchangeContractPINO && exchangeContractPINO.address
   )
   const allowanceSelectedToken = useExchangeAllowance(account, TOKEN_ADDRESSES[selectedTokenSymbol])
 
   // get reserves
-  const reserveSOCKSETH = useAddressBalance(exchangeContractSOCKS && exchangeContractSOCKS.address, TOKEN_ADDRESSES.ETH)
-  const reserveSOCKSToken = useAddressBalance(
-    exchangeContractSOCKS && exchangeContractSOCKS.address,
+  const reservePINOETH = useAddressBalance(exchangeContractPINO && exchangeContractPINO.address, TOKEN_ADDRESSES.ETH)
+  const reservePINOToken = useAddressBalance(
+    exchangeContractPINO && exchangeContractPINO.address,
     TOKEN_ADDRESSES.PINO
   )
   const { reserveETH: reserveSelectedTokenETH, reserveToken: reserveSelectedTokenToken } = useExchangeReserves(
@@ -194,13 +194,13 @@ export default function Main({ stats, status }) {
   const [USDExchangeRateSelectedToken, setUSDExchangeRateSelectedToken] = useState()
 
   const ready = !!(
-    (account === null || allowanceSOCKS) &&
+    (account === null || allowancePINO) &&
     (selectedTokenSymbol === 'ETH' || account === null || allowanceSelectedToken) &&
     (account === null || balanceETH) &&
-    (account === null || balanceSOCKS) &&
+    (account === null || balancePINO) &&
     (account === null || balanceSelectedToken) &&
-    reserveSOCKSETH &&
-    reserveSOCKSToken &&
+    reservePINOETH &&
+    reservePINOToken &&
     (selectedTokenSymbol === 'ETH' || reserveSelectedTokenETH) &&
     (selectedTokenSymbol === 'ETH' || reserveSelectedTokenToken) &&
     selectedTokenSymbol &&
@@ -243,20 +243,20 @@ export default function Main({ stats, status }) {
   const [dollarPrice, setDollarPrice] = useState()
   useEffect(() => {
     try {
-      const SOCKSExchangeRateETH = getExchangeRate(reserveSOCKSToken, reserveSOCKSETH)
+      const PINOExchangeRateETH = getExchangeRate(reservePINOToken, reservePINOETH)
       setDollarPrice(
-        SOCKSExchangeRateETH.mul(USDExchangeRateETH).div(
+        PINOExchangeRateETH.mul(USDExchangeRateETH).div(
           ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))
         )
       )
     } catch {
       setDollarPrice()
     }
-  }, [USDExchangeRateETH, reserveSOCKSETH, reserveSOCKSToken])
+  }, [USDExchangeRateETH, reservePINOETH, reservePINOToken])
 
-  async function unlock(buyingSOCKS = true) {
-    const contract = buyingSOCKS ? tokenContractSelectedToken : tokenContractSOCKS
-    const spenderAddress = buyingSOCKS ? exchangeContractSelectedToken.address : exchangeContractSOCKS.address
+  async function unlock(buyingPINO = true) {
+    const contract = buyingPINO ? tokenContractSelectedToken : tokenContractPINO
+    const spenderAddress = buyingPINO ? exchangeContractSelectedToken.address : exchangeContractPINO.address
 
     const estimatedGasLimit = await contract.estimate.approve(spenderAddress, ethers.constants.MaxUint256)
     const estimatedGasPrice = await library
@@ -271,11 +271,11 @@ export default function Main({ stats, status }) {
 
   // buy functionality
   const validateBuy = useCallback(
-    numberOfSOCKS => {
+    numberOfPINO => {
       // validate passed amount
       let parsedValue
       try {
-        parsedValue = ethers.utils.parseUnits(numberOfSOCKS, 18)
+        parsedValue = ethers.utils.parseUnits(numberOfPINO, 18)
       } catch (error) {
         error.code = ERROR_CODES.INVALID_AMOUNT
         throw error
@@ -287,8 +287,8 @@ export default function Main({ stats, status }) {
           selectedTokenSymbol,
           TOKEN_SYMBOLS.PINO,
           parsedValue,
-          reserveSOCKSETH,
-          reserveSOCKSToken,
+          reservePINOETH,
+          reservePINOToken,
           reserveSelectedTokenETH,
           reserveSelectedTokenToken
         )
@@ -342,8 +342,8 @@ export default function Main({ stats, status }) {
       allowanceSelectedToken,
       balanceETH,
       balanceSelectedToken,
-      reserveSOCKSETH,
-      reserveSOCKSToken,
+      reservePINOETH,
+      reservePINOToken,
       reserveSelectedTokenETH,
       reserveSelectedTokenToken,
       selectedTokenSymbol
@@ -358,10 +358,10 @@ export default function Main({ stats, status }) {
       .then(gasPrice => gasPrice.mul(ethers.utils.bigNumberify(150)).div(ethers.utils.bigNumberify(100)))
 
     if (selectedTokenSymbol === TOKEN_SYMBOLS.ETH) {
-      const estimatedGasLimit = await exchangeContractSOCKS.estimate.ethToTokenSwapOutput(outputValue, deadline, {
+      const estimatedGasLimit = await exchangeContractPINO.estimate.ethToTokenSwapOutput(outputValue, deadline, {
         value: maximumInputValue
       })
-      return exchangeContractSOCKS.ethToTokenSwapOutput(outputValue, deadline, {
+      return exchangeContractPINO.ethToTokenSwapOutput(outputValue, deadline, {
         value: maximumInputValue,
         gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
         gasPrice: estimatedGasPrice
@@ -390,11 +390,11 @@ export default function Main({ stats, status }) {
 
   // sell functionality
   const validateSell = useCallback(
-    numberOfSOCKS => {
+    numberOfPINO => {
       // validate passed amount
       let parsedValue
       try {
-        parsedValue = ethers.utils.parseUnits(numberOfSOCKS, 18)
+        parsedValue = ethers.utils.parseUnits(numberOfPINO, 18)
       } catch (error) {
         error.code = ERROR_CODES.INVALID_AMOUNT
         throw error
@@ -407,8 +407,8 @@ export default function Main({ stats, status }) {
           TOKEN_SYMBOLS.PINO,
           selectedTokenSymbol,
           parsedValue,
-          reserveSOCKSETH,
-          reserveSOCKSToken,
+          reservePINOETH,
+          reservePINOToken,
           reserveSelectedTokenETH,
           reserveSelectedTokenToken
         )
@@ -432,7 +432,7 @@ export default function Main({ stats, status }) {
       }
 
       // validate minimum socks balance
-      if (balanceSOCKS.lt(parsedValue)) {
+      if (balancePINO.lt(parsedValue)) {
         const error = Error()
         error.code = ERROR_CODES.INSUFFICIENT_SELECTED_TOKEN_BALANCE
         if (!errorAccumulator) {
@@ -441,7 +441,7 @@ export default function Main({ stats, status }) {
       }
 
       // validate allowance
-      if (allowanceSOCKS.lt(parsedValue)) {
+      if (allowancePINO.lt(parsedValue)) {
         const error = Error()
         error.code = ERROR_CODES.INSUFFICIENT_ALLOWANCE
         if (!errorAccumulator) {
@@ -457,11 +457,11 @@ export default function Main({ stats, status }) {
       }
     },
     [
-      allowanceSOCKS,
+      allowancePINO,
       balanceETH,
-      balanceSOCKS,
-      reserveSOCKSETH,
-      reserveSOCKSToken,
+      balancePINO,
+      reservePINOETH,
+      reservePINOToken,
       reserveSelectedTokenETH,
       reserveSelectedTokenToken,
       selectedTokenSymbol
@@ -476,24 +476,24 @@ export default function Main({ stats, status }) {
       .then(gasPrice => gasPrice.mul(ethers.utils.bigNumberify(150)).div(ethers.utils.bigNumberify(100)))
 
     if (selectedTokenSymbol === TOKEN_SYMBOLS.ETH) {
-      const estimatedGasLimit = await exchangeContractSOCKS.estimate.tokenToEthSwapInput(
+      const estimatedGasLimit = await exchangeContractPINO.estimate.tokenToEthSwapInput(
         inputValue,
         minimumOutputValue,
         deadline
       )
-      return exchangeContractSOCKS.tokenToEthSwapInput(inputValue, minimumOutputValue, deadline, {
+      return exchangeContractPINO.tokenToEthSwapInput(inputValue, minimumOutputValue, deadline, {
         gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
         gasPrice: estimatedGasPrice
       })
     } else {
-      const estimatedGasLimit = await exchangeContractSOCKS.estimate.tokenToTokenSwapInput(
+      const estimatedGasLimit = await exchangeContractPINO.estimate.tokenToTokenSwapInput(
         inputValue,
         minimumOutputValue,
         ethers.constants.One,
         deadline,
         TOKEN_ADDRESSES[selectedTokenSymbol]
       )
-      return exchangeContractSOCKS.tokenToTokenSwapInput(
+      return exchangeContractPINO.tokenToTokenSwapInput(
         inputValue,
         minimumOutputValue,
         ethers.constants.One,
@@ -514,18 +514,18 @@ export default function Main({ stats, status }) {
       .getGasPrice()
       .then(gasPrice => gasPrice.mul(ethers.utils.bigNumberify(150)).div(ethers.utils.bigNumberify(100)))
 
-    const estimatedGasLimit = await tokenContractSOCKS.estimate.burn(parsedAmount)
+    const estimatedGasLimit = await tokenContractPINO.estimate.burn(parsedAmount)
 
-    return tokenContractSOCKS.burn(parsedAmount, {
+    return tokenContractPINO.burn(parsedAmount, {
       gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
       gasPrice: estimatedGasPrice
     })
   }
 
   return stats ? (
-    <Stats reserveSOCKSToken={reserveSOCKSToken} totalSupply={totalSupply} ready={ready} balanceSOCKS={balanceSOCKS} />
+    <Stats reservePINOToken={reservePINOToken} totalSupply={totalSupply} ready={ready} balancePINO={balancePINO} />
   ) : status ? (
-    <Status totalSupply={totalSupply} ready={ready} balanceSOCKS={balanceSOCKS} />
+    <Status totalSupply={totalSupply} ready={ready} balancePINO={balancePINO} />
   ) : (
     <Body
       selectedTokenSymbol={selectedTokenSymbol}
@@ -539,8 +539,8 @@ export default function Main({ stats, status }) {
       burn={burn}
       dollarize={dollarize}
       dollarPrice={dollarPrice}
-      balanceSOCKS={balanceSOCKS}
-      reserveSOCKSToken={reserveSOCKSToken}
+      balancePINO={balancePINO}
+      reservePINOToken={reservePINOToken}
       totalSupply={totalSupply}
     />
   )

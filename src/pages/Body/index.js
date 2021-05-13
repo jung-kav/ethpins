@@ -10,7 +10,7 @@ import RedeemButton from '../../components/RedeemButton'
 import Checkout from '../../components/Checkout'
 import { amountFormatter } from '../../utils'
 
-export function Header({ totalSupply, ready, balanceSOCKS, setShowConnect }) {
+export function Header({ totalSupply, ready, balancePINO, setShowConnect }) {
   const { account, setConnector } = useWeb3Context()
 
   function handleAccount() {
@@ -20,7 +20,7 @@ export function Header({ totalSupply, ready, balanceSOCKS, setShowConnect }) {
   }
 
   return (
-    <HeaderFrame balanceSOCKS={balanceSOCKS}>
+    <HeaderFrame balancePINO={balancePINO}>
       <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
         <Unicorn>
           <span role="img" aria-label="unicorn">
@@ -40,10 +40,10 @@ export function Header({ totalSupply, ready, balanceSOCKS, setShowConnect }) {
             </Burned>
           </Link>
         )}
-        <Account onClick={() => handleAccount()} balanceSOCKS={balanceSOCKS}>
+        <Account onClick={() => handleAccount()} balancePINO={balancePINO}>
           {account ? (
-            balanceSOCKS > 0 ? (
-              <SockCount>{balanceSOCKS && `${amountFormatter(balanceSOCKS, 18, 0)}`} PINO</SockCount>
+            balancePINO > 0 ? (
+              <SockCount>{balancePINO && `${amountFormatter(balancePINO, 18, 0)}`} PINO</SockCount>
             ) : (
               <SockCount>{account.slice(0, 6)}...</SockCount>
             )
@@ -51,7 +51,7 @@ export function Header({ totalSupply, ready, balanceSOCKS, setShowConnect }) {
             <SockCount>Connect Wallet</SockCount>
           )}
 
-          <Status balanceSOCKS={balanceSOCKS} ready={ready} account={account} />
+          <Status balancePINO={balancePINO} ready={ready} account={account} />
         </Account>
       </div>
     </HeaderFrame>
@@ -64,7 +64,7 @@ const HeaderFrame = styled.div`
   box-sizing: border-box;
   margin: 0px;
   font-size: 1.25rem;
-  color: ${props => (props.balanceSOCKS ? props.theme.primary : 'white')};
+  color: ${props => (props.balancePINO ? props.theme.primary : 'white')};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -72,16 +72,16 @@ const HeaderFrame = styled.div`
 `
 
 const Account = styled.div`
-  background-color: ${props => (props.balanceSOCKS ? '#f1f2f6' : props.theme.blue)};
+  background-color: ${props => (props.balancePINO ? '#f1f2f6' : props.theme.blue)};
   padding: 0.75rem;
   border-radius: 6px;
-  cursor: ${props => (props.balanceSOCKS ? 'auto' : 'pointer')};
+  cursor: ${props => (props.balancePINO ? 'auto' : 'pointer')};
 
   transform: scale(1);
   transition: transform 0.3s ease;
 
   :hover {
-    transform: ${props => (props.balanceSOCKS ? 'scale(1)' : 'scale(1.02)')};
+    transform: ${props => (props.balancePINO ? 'scale(1)' : 'scale(1.02)')};
     text-decoration: underline;
   }
 `
@@ -121,7 +121,7 @@ const SockCount = styled.p`
 `
 
 const Status = styled.div`
-  display: ${props => (props.balanceSOCKS ? 'initial' : 'none')};
+  display: ${props => (props.balancePINO ? 'initial' : 'none')};
   width: 12px;
   height: 12px;
   border-radius: 100%;
@@ -145,8 +145,8 @@ export default function Body({
   burn,
   dollarize,
   dollarPrice,
-  balanceSOCKS,
-  reserveSOCKSToken,
+  balancePINO,
+  reservePINOToken,
   totalSupply
 }) {
   const { account } = useWeb3Context()
@@ -167,11 +167,11 @@ export default function Body({
         totalSupply={totalSupply}
         ready={ready}
         dollarPrice={dollarPrice}
-        balanceSOCKS={balanceSOCKS}
+        balancePINO={balancePINO}
         setShowConnect={setShowConnect}
       />
       <Content>
-        <Card totalSupply={totalSupply} dollarPrice={dollarPrice} reserveSOCKSToken={reserveSOCKSToken} />{' '}
+        <Card totalSupply={totalSupply} dollarPrice={dollarPrice} reservePINOToken={reservePINOToken} />{' '}
         <Info>
           <div style={{ marginBottom: '4px' }}>Buy and sell limited edition pins with digital currency.</div>
           <div style={{ marginBottom: '4px' }}>
@@ -188,8 +188,8 @@ export default function Body({
             </a>
           </div>
         </Info>
-        <BuyButtons balanceSOCKS={balanceSOCKS} />
-        <RedeemButton balanceSOCKS={balanceSOCKS} />
+        <BuyButtons balancePINO={balancePINO} />
+        <RedeemButton balancePINO={balancePINO} />
         {!!account && (
           <Link style={{ textDecoration: 'none' }} to="/status">
             <OrderStatusLink>Check order status?</OrderStatusLink>
@@ -206,9 +206,9 @@ export default function Body({
         validateSell={validateSell}
         sell={sell}
         burn={burn}
-        balanceSOCKS={balanceSOCKS}
+        balancePINO={balancePINO}
         dollarPrice={dollarPrice}
-        reserveSOCKSToken={reserveSOCKSToken}
+        reservePINOToken={reservePINOToken}
         dollarize={dollarize}
         showConnect={showConnect}
         setShowConnect={setShowConnect}
