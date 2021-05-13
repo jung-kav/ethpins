@@ -14,7 +14,7 @@ export default function Body({ totalSupply, reservePINOToken, ready, balancePINO
         <Title>ETHpin Stats</Title>
         <Description>
           <p>
-            <span role="img" aria-label="socks">
+            <span role="img" aria-label="ethpins">
               📌
             </span>
             Initial Ethpins
@@ -23,7 +23,7 @@ export default function Body({ totalSupply, reservePINOToken, ready, balancePINO
         </Description>
         <Description>
           <p>
-            <span role="img" aria-label="socks">
+            <span role="img" aria-label="ethpins">
               🔥
             </span>
             Redeemed Ethpins
@@ -32,7 +32,7 @@ export default function Body({ totalSupply, reservePINOToken, ready, balancePINO
         </Description>
         <Description>
           <p>
-            <span role="img" aria-label="socks">
+            <span role="img" aria-label="ethpins">
               💦
             </span>
             ETHpin Pool

@@ -111,7 +111,7 @@ function calculateAmount(
   const buyingPINO = outputTokenSymbol === TOKEN_SYMBOLS.PINO
 
   if (buyingPINO) {
-    // eth needed to buy x socks
+    // eth needed to buy x ethpins
     const intermediateValue = calculateEtherTokenInputFromOutput(PINOAmount, reservePINOETH, reservePINOToken)
     // calculateEtherTokenOutputFromInput
     if (intermediateValue.lte(ethers.constants.Zero) || intermediateValue.gte(ethers.constants.MaxUint256)) {
@@ -128,7 +128,7 @@ function calculateAmount(
     }
     return amount
   } else {
-    // eth gained from selling x socks
+    // eth gained from selling x ethpins
     const intermediateValue = calculateEtherTokenOutputFromInput(PINOAmount, reservePINOToken, reservePINOETH)
     if (intermediateValue.lte(ethers.constants.Zero) || intermediateValue.gte(ethers.constants.MaxUint256)) {
       throw Error()
@@ -431,7 +431,7 @@ export default function Main({ stats, status }) {
         }
       }
 
-      // validate minimum socks balance
+      // validate minimum ethpins balance
       if (balancePINO.lt(parsedValue)) {
         const error = Error()
         error.code = ERROR_CODES.INSUFFICIENT_SELECTED_TOKEN_BALANCE

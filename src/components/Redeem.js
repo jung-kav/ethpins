@@ -267,7 +267,7 @@ export default function Redeem({
             <ImgStyle src={pac} alt="Logo" hasPickedAmount={hasPickedAmount} hasBurnt={hasBurnt} />
             <InfoFrame>
               <Owned>
-                <p>You got socks!</p>
+                <p>You got ethpins!</p>
               </Owned>
             </InfoFrame>
           </TopFrame>

@@ -46,7 +46,7 @@ export default function Works({ closeCheckout }) {
 
       <Title>How it works:</Title>
       <Desc>
-        $PINO is a token that entitles you to 1 real pair of limited edition socks, shipped anywhere in the world.
+        $PINO is a token that entitles you to 1 real pair of limited edition ethpins, shipped anywhere in the world.
       </Desc>
       <Desc>
         You can sell the token back at any time. To get a <i>real</i> pair, redeem a $PINO token
@@ -66,7 +66,7 @@ export default function Works({ closeCheckout }) {
       </Desc>
       <Title>Unipay:</Title>
       <Desc>
-        Buying or selling socks uses the uniswap protocol and accepts any token input as a payment method. The pool of
+        Buying or selling ethpins uses the uniswap protocol and accepts any token input as a payment method. The pool of
         PINO is a uniswap pool where 1000 PINO tokens were deposited along with the starting value of ETH.{' '}
       </Desc>
       <Desc>
