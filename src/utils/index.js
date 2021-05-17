@@ -6,7 +6,7 @@ import FACTORY_ABI from './factory.json'
 
 import UncheckedJsonRpcSigner from './signer'
 
-const FACTORY_ADDRESS = '0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F'
+const FACTORY_ADDRESS = '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696'
 
 export const TOKEN_ADDRESSES = {
   ETH: 'ETH',
