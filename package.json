@@ -3,6 +3,7 @@
   "version": "1.0.0-beta.0",
   "private": true,
   "dependencies": {
+    "@uniswap/v2-core": "^1.0.1",
     "@walletconnect/web3-subprovider": "^1.4.1",
     "ethers": "^4.0.27",
     "http-proxy-middleware": "^0.19.1",

@@ -48,9 +48,9 @@ export function useExchangeContract(tokenAddress, withSignerIfPossible = true) {
   useEffect(() => {
     if (isAddress(tokenAddress)) {
       let stale = false
-      getTokenExchangeAddressFromFactory(tokenAddress, library).then(exchangeAddress => {
+      getTokenExchangeAddressFromFactory(tokenAddress, library).then(res => {
         if (!stale) {
-          setExchangeAddress(exchangeAddress)
+          setExchangeAddress(res)
         }
       })
       return () => {

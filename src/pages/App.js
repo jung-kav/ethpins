@@ -1,6 +1,5 @@
 import React from 'react'
 import Web3Provider, { Connectors } from 'web3-react'
-import WalletConnectApi from '@walletconnect/web3-subprovider'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 
 import GlobalStyle, { ThemeProvider } from '../theme'
@@ -10,21 +9,18 @@ import Main from './Main'
 
 const PROVIDER_URL = process.env.REACT_APP_PROVIDER_URL
 
-const { NetworkOnlyConnector, InjectedConnector, WalletConnectConnector } = Connectors
+const { NetworkOnlyConnector, InjectedConnector } = Connectors
 const Network = new NetworkOnlyConnector({
-  providerURL: PROVIDER_URL
-})
-const Injected = new InjectedConnector({ supportedNetworks: [3] })
-const WalletConnect = new WalletConnectConnector({
-  api: WalletConnectApi,
-  bridge: 'https://bridge.walletconnect.org',
+  providerURL: PROVIDER_URL,
+  defaultNetwork: 3,
+  supportedNetworks: [3],
   supportedNetworkURLs: {
     3: PROVIDER_URL
-  },
-  infuraId: process.env.REACT_APP_INFURA_PROJECT_ID || '',
-  defaultNetwork: 3
+  }
 })
-const connectors = { Network, Injected, WalletConnect }
+const Injected = new InjectedConnector({ supportedNetworks: [3], defaultNetwork: 3 })
+
+const connectors = { Network, Injected }
 
 export default function App() {
   return (
