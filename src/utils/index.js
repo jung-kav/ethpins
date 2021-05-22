@@ -12,7 +12,8 @@ const FACTORY_ADDRESS = '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f'
 export const TOKEN_ADDRESSES = {
   ETH: 'ETH',
   PINO: process.env.REACT_APP_TOKEN_CONTRACT_ADDRESS,
-  DAI: '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+  // TODO: make dynamic for each chain
+  DAI: '0xad6d458402f60fd3bd25163575031acdce07538d'
 }
 
 export const TOKEN_SYMBOLS = Object.keys(TOKEN_ADDRESSES).reduce((o, k) => {
