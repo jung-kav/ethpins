@@ -91,7 +91,7 @@ export default function Body({ totalSupply, ready, balancePINO }) {
                           timeStyle: 'short'
                         })}
                       </li>
-                      <li>PINO Redeemed: {d.numberOfSocks}</li>
+                      <li>PINO Redeemed: {d.numberOfEthpins}</li>
                       <li>
                         Status:{' '}
                         {d.invalid
