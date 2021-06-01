@@ -98,10 +98,10 @@ export default function BuyAndSell({
     return `https://etherscan.io/tx/${hash}`
   }
 
-  function getText(account, buying, errorMessage, ready, pending, hash) {
+  function getText(account, buying, errorMessage, isReady, pending, hash) {
     if (account === null) {
       return 'Connect Wallet'
-    } else if (ready && !errorMessage) {
+    } else if (isReady && !errorMessage) {
       if (!buying) {
         if (pending && hash) {
           return 'Waiting for confirmation'
