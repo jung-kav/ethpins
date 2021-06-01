@@ -13,12 +13,13 @@ const { NetworkOnlyConnector, InjectedConnector } = Connectors
 const Network = new NetworkOnlyConnector({
   providerURL: PROVIDER_URL,
   defaultNetwork: 3,
-  supportedNetworks: [3],
+  supportedNetworks: [3, 31337],
   supportedNetworkURLs: {
-    3: PROVIDER_URL
+    3: PROVIDER_URL,
+    31337: 'http://localhost:8545'
   }
 })
-const Injected = new InjectedConnector({ supportedNetworks: [3], defaultNetwork: 3 })
+const Injected = new InjectedConnector({ supportedNetworks: [3, 31337], defaultNetwork: 3 })
 
 const connectors = { Network, Injected }
 
