@@ -137,3 +137,6 @@ temp/
 cache
 .logs
 artifacts
+
+# Netlify
+functions-build
