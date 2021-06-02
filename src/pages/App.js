@@ -7,19 +7,18 @@ import Web3ReactManager from '../components/Web3ReactManager'
 import AppProvider from '../context'
 import Main from './Main'
 
-const PROVIDER_URL = `https://eth-.alchemyapi.io/v2/${process.env.ALCHEMY_PROJECT_ID}`
+const { REACT_APP_PROVIDER_URL = 'http://localhost:8545', REACT_APP_CHAIN_ID = 31337 } = process.env
 
 const { NetworkOnlyConnector, InjectedConnector } = Connectors
 const Network = new NetworkOnlyConnector({
-  providerURL: PROVIDER_URL,
-  defaultNetwork: 3,
-  supportedNetworks: [3, 31337],
+  providerURL: REACT_APP_PROVIDER_URL,
+  defaultNetwork: REACT_APP_CHAIN_ID,
+  supportedNetworks: [REACT_APP_CHAIN_ID],
   supportedNetworkURLs: {
-    3: PROVIDER_URL,
-    31337: 'http://localhost:8545',
+    [REACT_APP_CHAIN_ID]: REACT_APP_PROVIDER_URL,
   },
 })
-const Injected = new InjectedConnector({ supportedNetworks: [3, 31337], defaultNetwork: 3 })
+const Injected = new InjectedConnector({ supportedNetworks: [REACT_APP_CHAIN_ID], defaultNetwork: REACT_APP_CHAIN_ID })
 
 const connectors = { Network, Injected }
 
