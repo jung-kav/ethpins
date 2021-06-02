@@ -113,7 +113,7 @@ export function amountFormatter(amount, baseDecimals = 18, displayDecimals = 3, 
   else if (amount.isZero()) {
     return '0'
   }
-  // amount > 0
+  // if amount is greater than 0
   else {
     // amount of 'wei' in 1 'ether'
     const baseAmount = ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(baseDecimals))
