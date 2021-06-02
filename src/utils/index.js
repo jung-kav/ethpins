@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
-import Exchange from '@uniswap/v2-core/build/IUniswapV2ERC20.json'
-import Factory from '@uniswap/v2-core/build/IUniswapV2Factory.json'
+import Exchange from '@uniswap/v2-core/build/UniswapV2Pair.json'
+import Factory from '@uniswap/v2-core/build/UniswapV2Factory.json'
 
 import ERC20_ABI from './erc20.json'
 import UncheckedJsonRpcSigner from './signer'
