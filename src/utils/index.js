@@ -1,18 +1,19 @@
 import { ethers } from 'ethers'
+import Token from '@uniswap/v2-core/build/ERC20.json'
 import Exchange from '@uniswap/v2-core/build/UniswapV2Pair.json'
 import Factory from '@uniswap/v2-core/build/UniswapV2Factory.json'
 
-import ERC20_ABI from './erc20.json'
 import UncheckedJsonRpcSigner from './signer'
 
-const FACTORY_ABI = Factory.abi
+const ERC20_ABI = Token.abi
 const EXCHANGE_ABI = Exchange.abi
+const FACTORY_ABI = Factory.abi
 const FACTORY_ADDRESS = '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f'
 
 export const TOKEN_ADDRESSES = {
   ETH: 'ETH',
   PINO: process.env.REACT_APP_TOKEN_CONTRACT_ADDRESS,
-  DAI: process.env.REACT_APP_DAI_ADDRESS
+  DAI: process.env.REACT_APP_DAI_ADDRESS,
 }
 
 export const TOKEN_SYMBOLS = Object.keys(TOKEN_ADDRESSES).reduce((o, k) => {
@@ -25,7 +26,7 @@ export const ERROR_CODES = [
   'INVALID_TRADE',
   'INSUFFICIENT_ETH_GAS',
   'INSUFFICIENT_SELECTED_TOKEN_BALANCE',
-  'INSUFFICIENT_ALLOWANCE'
+  'INSUFFICIENT_ALLOWANCE',
 ].reduce((o, k, i) => {
   o[k] = i
   return o
