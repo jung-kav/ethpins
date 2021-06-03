@@ -156,19 +156,13 @@ export default function BuyAndSell({
     if (buying && buyValidationState.inputValue) {
       conditionalRender = (
         <>
-          <p>
-            ${ready && amountFormatter(dollarize(buyValidationState.inputValue), 18, 2)}
-            {/* ({amountFormatter(buyValidationState.inputValue, 18, 4)} {selectedTokenSymbol}) */}
-          </p>
+          <p>${ready && amountFormatter(dollarize(buyValidationState.inputValue), 18, 2)}</p>
         </>
       )
     } else if (selling && sellValidationState.outputValue) {
       conditionalRender = (
         <>
-          <p>
-            ${ready && amountFormatter(dollarize(sellValidationState.outputValue), 18, 2)}
-            {/* ({amountFormatter(sellValidationState.outputValue, 18, 4)} {selectedTokenSymbol}) */}
-          </p>
+          <p>${ready && amountFormatter(dollarize(sellValidationState.outputValue), 18, 2)}</p>
         </>
       )
     } else {
