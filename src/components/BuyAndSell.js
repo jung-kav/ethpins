@@ -8,7 +8,6 @@ import IncrementToken from './IncrementToken'
 import { useAppContext } from '../context'
 import { ERROR_CODES, amountFormatter, TRADE_TYPES } from '../utils'
 import pac from './Gallery/pac.png'
-// import { ethers } from 'ethers'
 
 export function useCount() {
   const [state, setState] = useAppContext()
