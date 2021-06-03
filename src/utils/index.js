@@ -128,11 +128,9 @@ export function amountFormatter(amount, baseDecimals = 18, displayDecimals = 3, 
   // if amount is greater than 0
   else {
     // amount of 'wei' in 1 'ether'
-    const baseAmount = ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(baseDecimals))
+    const baseAmount = ethers.BigNumber.from(10).pow(ethers.BigNumber.from(baseDecimals))
 
-    const minimumDisplayAmount = baseAmount.div(
-      ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(displayDecimals))
-    )
+    const minimumDisplayAmount = baseAmount.div(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(displayDecimals)))
 
     // if balance is less than the minimum display amount
     if (amount.lt(minimumDisplayAmount)) {

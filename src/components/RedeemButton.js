@@ -13,7 +13,7 @@ const BuyButtonFrame = styled.div`
   align-items: center;
   flex-direction: center;
   flex-direction: row;
-  color: ${props => props.theme.black};
+  color: ${(props) => props.theme.black};
 
   div {
     width: 100%;
@@ -38,7 +38,7 @@ export default function RedeemButton({ balancePINO }) {
   const { account } = useWeb3Context()
 
   function handleToggleCheckout(tradeType) {
-    setState(state => ({ ...state, visible: !state.visible, tradeType }))
+    setState((state) => ({ ...state, visible: !state.visible, tradeType }))
   }
 
   return (
@@ -54,9 +54,7 @@ export default function RedeemButton({ balancePINO }) {
       <Shim />
       <ButtonFrame
         disabled={
-          account === null ||
-          !balancePINO ||
-          balancePINO.lt(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+          account === null || !balancePINO || balancePINO.lt(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18)))
         }
         text={'Redeem'}
         type={'secondary'}

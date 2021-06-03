@@ -10,17 +10,17 @@ import {
   useAddressAllowance,
   useExchangeReserves,
   useExchangeAllowance,
-  useTotalSupply
+  useTotalSupply,
 } from '../../hooks'
 import Body from '../Body'
 import Stats from '../Stats'
 import Status from '../Status'
 
 // denominated in bips
-const GAS_MARGIN = ethers.utils.bigNumberify(1000)
+const GAS_MARGIN = ethers.BigNumber.from(1000)
 
 export function calculateGasMargin(value, margin) {
-  const offset = value.mul(margin).div(ethers.utils.bigNumberify(10000))
+  const offset = value.mul(margin).div(ethers.BigNumber.from(10000))
   return value.add(offset)
 }
 
@@ -28,30 +28,30 @@ export function calculateGasMargin(value, margin) {
 const DEADLINE_FROM_NOW = 60 * 15
 
 // denominated in bips
-const ALLOWED_SLIPPAGE = ethers.utils.bigNumberify(200)
+const ALLOWED_SLIPPAGE = ethers.BigNumber.from(200)
 
 function calculateSlippageBounds(value) {
-  const offset = value.mul(ALLOWED_SLIPPAGE).div(ethers.utils.bigNumberify(10000))
+  const offset = value.mul(ALLOWED_SLIPPAGE).div(ethers.BigNumber.from(10000))
   const minimum = value.sub(offset)
   const maximum = value.add(offset)
   return {
     minimum: minimum.lt(ethers.constants.Zero) ? ethers.constants.Zero : minimum,
-    maximum: maximum.gt(ethers.constants.MaxUint256) ? ethers.constants.MaxUint256 : maximum
+    maximum: maximum.gt(ethers.constants.MaxUint256) ? ethers.constants.MaxUint256 : maximum,
   }
 }
 
 // this mocks the getInputPrice function, and calculates the required output
 function calculateEtherTokenOutputFromInput(inputAmount, inputReserve, outputReserve) {
-  const inputAmountWithFee = inputAmount.mul(ethers.utils.bigNumberify(997))
+  const inputAmountWithFee = inputAmount.mul(ethers.BigNumber.from(997))
   const numerator = inputAmountWithFee.mul(outputReserve)
-  const denominator = inputReserve.mul(ethers.utils.bigNumberify(1000)).add(inputAmountWithFee)
+  const denominator = inputReserve.mul(ethers.BigNumber.from(1000)).add(inputAmountWithFee)
   return numerator.div(denominator)
 }
 
 // this mocks the getOutputPrice function, and calculates the required input
 function calculateEtherTokenInputFromOutput(outputAmount, inputReserve, outputReserve) {
-  const numerator = inputReserve.mul(outputAmount).mul(ethers.utils.bigNumberify(1000))
-  const denominator = outputReserve.sub(outputAmount).mul(ethers.utils.bigNumberify(997))
+  const numerator = inputReserve.mul(outputAmount).mul(ethers.BigNumber.from(1000))
+  const denominator = outputReserve.sub(outputAmount).mul(ethers.BigNumber.from(997))
   return numerator.div(denominator).add(ethers.constants.One)
 }
 
@@ -61,20 +61,20 @@ function getExchangeRate(inputValue, outputValue, invert = false) {
   const outputDecimals = 18
 
   if (inputValue && inputDecimals && outputValue && outputDecimals) {
-    const factor = ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))
+    const factor = ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18))
 
     if (invert) {
       return inputValue
         .mul(factor)
         .div(outputValue)
-        .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
-        .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
+        .mul(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(outputDecimals)))
+        .div(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(inputDecimals)))
     } else {
       return outputValue
         .mul(factor)
         .div(inputValue)
-        .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
-        .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
+        .mul(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(inputDecimals)))
+        .div(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(outputDecimals)))
     }
   }
 }
@@ -179,10 +179,7 @@ export default function Main({ stats, status }) {
 
   // get reserves
   const reservePINOETH = useAddressBalance(exchangeContractPINO && exchangeContractPINO.address, TOKEN_ADDRESSES.ETH)
-  const reservePINOToken = useAddressBalance(
-    exchangeContractPINO && exchangeContractPINO.address,
-    TOKEN_ADDRESSES.PINO
-  )
+  const reservePINOToken = useAddressBalance(exchangeContractPINO && exchangeContractPINO.address, TOKEN_ADDRESSES.PINO)
   const { reserveETH: reserveSelectedTokenETH, reserveToken: reserveSelectedTokenToken } = useExchangeReserves(
     TOKEN_ADDRESSES[selectedTokenSymbol]
   )
@@ -217,9 +214,7 @@ export default function Main({ stats, status }) {
         const exchangeRateSelectedToken = getExchangeRate(reserveSelectedTokenETH, reserveSelectedTokenToken)
         if (exchangeRateDAI && exchangeRateSelectedToken) {
           setUSDExchangeRateSelectedToken(
-            exchangeRateDAI
-              .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-              .div(exchangeRateSelectedToken)
+            exchangeRateDAI.mul(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18))).div(exchangeRateSelectedToken)
           )
         }
       }
@@ -230,7 +225,7 @@ export default function Main({ stats, status }) {
   }, [reserveDAIETH, reserveDAIToken, reserveSelectedTokenETH, reserveSelectedTokenToken, selectedTokenSymbol])
 
   function _dollarize(amount, exchangeRate) {
-    return amount.mul(exchangeRate).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+    return amount.mul(exchangeRate).div(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18)))
   }
 
   function dollarize(amount) {
@@ -245,9 +240,7 @@ export default function Main({ stats, status }) {
     try {
       const PINOExchangeRateETH = getExchangeRate(reservePINOToken, reservePINOETH)
       setDollarPrice(
-        PINOExchangeRateETH.mul(USDExchangeRateETH).div(
-          ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))
-        )
+        PINOExchangeRateETH.mul(USDExchangeRateETH).div(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18)))
       )
     } catch {
       setDollarPrice()
@@ -261,17 +254,17 @@ export default function Main({ stats, status }) {
     const estimatedGasLimit = await contract.estimate.approve(spenderAddress, ethers.constants.MaxUint256)
     const estimatedGasPrice = await library
       .getGasPrice()
-      .then(gasPrice => gasPrice.mul(ethers.utils.bigNumberify(150)).div(ethers.utils.bigNumberify(100)))
+      .then((gasPrice) => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
     return contract.approve(spenderAddress, ethers.constants.MaxUint256, {
       gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
-      gasPrice: estimatedGasPrice
+      gasPrice: estimatedGasPrice,
     })
   }
 
   // buy functionality
   const validateBuy = useCallback(
-    numberOfPINO => {
+    (numberOfPINO) => {
       // validate passed amount
       let parsedValue
       try {
@@ -335,7 +328,7 @@ export default function Main({ stats, status }) {
         inputValue: requiredValueInSelectedToken,
         maximumInputValue: maximum,
         outputValue: parsedValue,
-        error: errorAccumulator
+        error: errorAccumulator,
       }
     },
     [
@@ -346,7 +339,7 @@ export default function Main({ stats, status }) {
       reservePINOToken,
       reserveSelectedTokenETH,
       reserveSelectedTokenToken,
-      selectedTokenSymbol
+      selectedTokenSymbol,
     ]
   )
 
@@ -355,16 +348,16 @@ export default function Main({ stats, status }) {
 
     const estimatedGasPrice = await library
       .getGasPrice()
-      .then(gasPrice => gasPrice.mul(ethers.utils.bigNumberify(150)).div(ethers.utils.bigNumberify(100)))
+      .then((gasPrice) => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
     if (selectedTokenSymbol === TOKEN_SYMBOLS.ETH) {
       const estimatedGasLimit = await exchangeContractPINO.estimate.ethToTokenSwapOutput(outputValue, deadline, {
-        value: maximumInputValue
+        value: maximumInputValue,
       })
       return exchangeContractPINO.ethToTokenSwapOutput(outputValue, deadline, {
         value: maximumInputValue,
         gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
-        gasPrice: estimatedGasPrice
+        gasPrice: estimatedGasPrice,
       })
     } else {
       const estimatedGasLimit = await exchangeContractSelectedToken.estimate.tokenToTokenSwapOutput(
@@ -382,7 +375,7 @@ export default function Main({ stats, status }) {
         TOKEN_ADDRESSES.PINO,
         {
           gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
-          gasPrice: estimatedGasPrice
+          gasPrice: estimatedGasPrice,
         }
       )
     }
@@ -390,7 +383,7 @@ export default function Main({ stats, status }) {
 
   // sell functionality
   const validateSell = useCallback(
-    numberOfPINO => {
+    (numberOfPINO) => {
       // validate passed amount
       let parsedValue
       try {
@@ -453,7 +446,7 @@ export default function Main({ stats, status }) {
         inputValue: parsedValue,
         outputValue: requiredValueInSelectedToken,
         minimumOutputValue: minimum,
-        error: errorAccumulator
+        error: errorAccumulator,
       }
     },
     [
@@ -464,7 +457,7 @@ export default function Main({ stats, status }) {
       reservePINOToken,
       reserveSelectedTokenETH,
       reserveSelectedTokenToken,
-      selectedTokenSymbol
+      selectedTokenSymbol,
     ]
   )
 
@@ -473,7 +466,7 @@ export default function Main({ stats, status }) {
 
     const estimatedGasPrice = await library
       .getGasPrice()
-      .then(gasPrice => gasPrice.mul(ethers.utils.bigNumberify(150)).div(ethers.utils.bigNumberify(100)))
+      .then((gasPrice) => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
     if (selectedTokenSymbol === TOKEN_SYMBOLS.ETH) {
       const estimatedGasLimit = await exchangeContractPINO.estimate.tokenToEthSwapInput(
@@ -483,7 +476,7 @@ export default function Main({ stats, status }) {
       )
       return exchangeContractPINO.tokenToEthSwapInput(inputValue, minimumOutputValue, deadline, {
         gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
-        gasPrice: estimatedGasPrice
+        gasPrice: estimatedGasPrice,
       })
     } else {
       const estimatedGasLimit = await exchangeContractPINO.estimate.tokenToTokenSwapInput(
@@ -501,7 +494,7 @@ export default function Main({ stats, status }) {
         TOKEN_ADDRESSES[selectedTokenSymbol],
         {
           gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
-          gasPrice: estimatedGasPrice
+          gasPrice: estimatedGasPrice,
         }
       )
     }
@@ -512,13 +505,13 @@ export default function Main({ stats, status }) {
 
     const estimatedGasPrice = await library
       .getGasPrice()
-      .then(gasPrice => gasPrice.mul(ethers.utils.bigNumberify(150)).div(ethers.utils.bigNumberify(100)))
+      .then((gasPrice) => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
     const estimatedGasLimit = await tokenContractPINO.estimate.burn(parsedAmount)
 
     return tokenContractPINO.burn(parsedAmount, {
       gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
-      gasPrice: estimatedGasPrice
+      gasPrice: estimatedGasPrice,
     })
   }
 

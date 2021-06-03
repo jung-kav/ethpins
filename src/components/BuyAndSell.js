@@ -14,18 +14,18 @@ export function useCount() {
   const [state, setState] = useAppContext()
 
   function increment() {
-    setState(state => ({ ...state, count: state.count + 1 }))
+    setState((state) => ({ ...state, count: state.count + 1 }))
   }
 
   function decrement() {
     if (state.count >= 1) {
-      setState(state => ({ ...state, count: state.count - 1 }))
+      setState((state) => ({ ...state, count: state.count - 1 }))
     }
   }
 
   function setCount(val) {
     let int = val.toInt()
-    setState(state => ({ ...state, count: int }))
+    setState((state) => ({ ...state, count: int }))
   }
   return [state.count, increment, decrement, setCount]
 }
@@ -72,7 +72,7 @@ export default function BuyAndSell({
   dollarize,
   setCurrentTransaction,
   currentTransactionHash,
-  setShowConnect
+  setShowConnect,
 }) {
   const [state] = useAppContext()
   const { account, setConnector } = useWeb3Context()
@@ -83,7 +83,7 @@ export default function BuyAndSell({
   //       ? '0x888503cb966a67192afb74c740abaec0b7e8bda370bc8f853fb040eab247c63f'
   //       : '0x8cd2cc7ebb7d47dd0230bd505fa4b3375faabb1c9f92137f725b85e4de3f61df',
   //     TRADE_TYPES.SELL,
-  //     ethers.utils.bigNumberify('1000000000000000000')
+  //     ethers.BigNumber.from('1000000000000000000')
   //   )
   // }
 
@@ -262,14 +262,14 @@ export default function BuyAndSell({
           type={'cta'}
           onClick={() => {
             if (account === null) {
-              setConnector('Injected', { suppressAndThrowErrors: true }).catch(error => {
+              setConnector('Injected', { suppressAndThrowErrors: true }).catch((error) => {
                 setShowConnect(true)
               })
             } else {
               ;(buying
                 ? buy(buyValidationState.maximumInputValue, buyValidationState.outputValue)
                 : sell(sellValidationState.inputValue, sellValidationState.minimumOutputValue)
-              ).then(response => {
+              ).then((response) => {
                 setCurrentTransaction(
                   response.hash,
                   buying ? TRADE_TYPES.BUY : TRADE_TYPES.SELL,
@@ -310,7 +310,7 @@ const Unicorn = styled.p`
 `
 
 const InfoFrame = styled.div`
-  opacity: ${props => (props.pending ? 0.6 : 1)};
+  opacity: ${(props) => (props.pending ? 0.6 : 1)};
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -368,7 +368,7 @@ const ButtonFrame = styled(Button)`
 
 const EtherscanLink = styled.a`
   text-decoration: none;
-  color: ${props => props.theme.uniswapPink};
+  color: ${(props) => props.theme.uniswapPink};
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
