@@ -5,7 +5,7 @@ import Factory from '@uniswap/v2-core/build/UniswapV2Factory.json'
 
 import UncheckedJsonRpcSigner from './signer'
 
-const { CHAIN_ID } = process.env
+const { REACT_APP_CHAIN_ID } = process.env
 const ERC20_ABI = Token.abi
 const EXCHANGE_ABI = Exchange.abi
 const FACTORY_ABI = Factory.abi
@@ -23,8 +23,8 @@ const DAI_ADDRESSES_BY_CHAIN = {
 
 export const TOKEN_ADDRESSES = {
   ETH: 'ETH',
-  DAI: DAI_ADDRESSES_BY_CHAIN[CHAIN_ID],
-  PINO: PINO_ADDRESSES_BY_CHAIN[CHAIN_ID],
+  DAI: DAI_ADDRESSES_BY_CHAIN[REACT_APP_CHAIN_ID],
+  PINO: PINO_ADDRESSES_BY_CHAIN[REACT_APP_CHAIN_ID],
 }
 
 export const TOKEN_SYMBOLS = Object.keys(TOKEN_ADDRESSES).reduce((o, k) => {
