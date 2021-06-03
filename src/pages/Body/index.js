@@ -14,7 +14,7 @@ export function Header({ totalSupply, ready, balancePINO, setShowConnect }) {
   const { account, setConnector } = useWeb3Context()
 
   function handleAccount() {
-    setConnector('Injected', { suppressAndThrowErrors: true }).catch(error => {
+    setConnector('Injected', { suppressAndThrowErrors: true }).catch((error) => {
       setShowConnect(true)
     })
   }
@@ -43,12 +43,12 @@ export function Header({ totalSupply, ready, balancePINO, setShowConnect }) {
         <Account onClick={() => handleAccount()} balancePINO={balancePINO}>
           {account ? (
             balancePINO > 0 ? (
-              <SockCount>{balancePINO && `${amountFormatter(balancePINO, 18, 0)}`} PINO</SockCount>
+              <EthCount>{balancePINO && `${amountFormatter(balancePINO, 18, 0)}`} PINO</EthCount>
             ) : (
-              <SockCount>{account.slice(0, 6)}...</SockCount>
+              <EthCount>{account.slice(0, 6)}...</EthCount>
             )
           ) : (
-            <SockCount>Connect Wallet</SockCount>
+            <EthCount>Connect Wallet</EthCount>
           )}
 
           <Status balancePINO={balancePINO} ready={ready} account={account} />
@@ -64,7 +64,7 @@ const HeaderFrame = styled.div`
   box-sizing: border-box;
   margin: 0px;
   font-size: 1.25rem;
-  color: ${props => (props.balancePINO ? props.theme.primary : 'white')};
+  color: ${(props) => (props.balancePINO ? props.theme.primary : 'white')};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -72,16 +72,16 @@ const HeaderFrame = styled.div`
 `
 
 const Account = styled.div`
-  background-color: ${props => (props.balancePINO ? '#f1f2f6' : props.theme.blue)};
+  background-color: ${(props) => (props.balancePINO ? '#f1f2f6' : props.theme.blue)};
   padding: 0.75rem;
   border-radius: 6px;
-  cursor: ${props => (props.balancePINO ? 'auto' : 'pointer')};
+  cursor: ${(props) => (props.balancePINO ? 'auto' : 'pointer')};
 
   transform: scale(1);
   transition: transform 0.3s ease;
 
   :hover {
-    transform: ${props => (props.balancePINO ? 'scale(1)' : 'scale(1.02)')};
+    transform: ${(props) => (props.balancePINO ? 'scale(1)' : 'scale(1.02)')};
     text-decoration: underline;
   }
 `
@@ -112,7 +112,7 @@ const HideMobile = styled.span`
   }
 `
 
-const SockCount = styled.p`
+const EthCount = styled.p`
   /* color: #6c7284; */
   font-weight: 500;
   margin: 0px;
@@ -121,14 +121,14 @@ const SockCount = styled.p`
 `
 
 const Status = styled.div`
-  display: ${props => (props.balancePINO ? 'initial' : 'none')};
+  display: ${(props) => (props.balancePINO ? 'initial' : 'none')};
   width: 12px;
   height: 12px;
   border-radius: 100%;
   margin-left: 12px;
   margin-top: 2px;
   float: right;
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.account === null ? props.theme.orange : props.ready ? props.theme.green : props.theme.orange};
   // props.account === null ? props.theme.orange : props.theme.green};
 `
@@ -147,7 +147,7 @@ export default function Body({
   dollarPrice,
   balancePINO,
   reservePINOToken,
-  totalSupply
+  totalSupply,
 }) {
   const { account } = useWeb3Context()
   const [currentTransaction, _setCurrentTransaction] = useState({})
@@ -178,9 +178,9 @@ export default function Body({
             Delivered on demand.{' '}
             <a
               href="/"
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault()
-                setState(state => ({ ...state, visible: !state.visible }))
+                setState((state) => ({ ...state, visible: !state.visible }))
                 setShowWorks(true)
               }}
             >
@@ -233,9 +233,9 @@ const AppWrapper = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
-  overflow: ${props => (props.overlay ? 'hidden' : 'scroll')};
+  overflow: ${(props) => (props.overlay ? 'hidden' : 'scroll')};
   scroll-behavior: smooth;
-  position: ${props => (props.overlay ? 'fixed' : 'initial')};
+  position: ${(props) => (props.overlay ? 'fixed' : 'initial')};
 `
 
 const Content = styled.div`
@@ -245,7 +245,7 @@ const Content = styled.div`
 `
 
 const Info = styled.div`
-  color: ${props => props.theme.text};
+  color: ${(props) => props.theme.text};
   font-weight: 500;
   margin: 0px;
   font-size: 14px;
@@ -256,9 +256,9 @@ const Info = styled.div`
   margin-bottom: 12px;
   margin-top: -12px;
   /* margin-top: 16px; */
-  background-color: ${props => '#f1f2f6'};
+  background-color: ${(props) => '#f1f2f6'};
   a {
-    color: ${props => props.theme.uniswapPink};
+    color: ${(props) => props.theme.uniswapPink};
     text-decoration: none;
     /* padding-top: 8px; */
     /* font-size: 14px; */
@@ -270,13 +270,13 @@ const Info = styled.div`
 `
 
 const OrderStatusLink = styled.p`
-  color: ${props => props.theme.uniswapPink};
+  color: ${(props) => props.theme.uniswapPink};
   text-align: center;
   font-size: 0.6rem;
 `
 
 const Unicorn = styled.p`
-  color: ${props => props.theme.uniswapPink};
+  color: ${(props) => props.theme.uniswapPink};
   font-weight: 600;
   margin: auto 0px;
   font-size: 16px;

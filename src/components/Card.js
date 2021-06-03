@@ -20,11 +20,11 @@ export default function Card({ totalSupply, dollarPrice, reservePINOToken }) {
         <MarketData>
           <span>
             <CurrentPrice>{dollarPrice ? `$${amountFormatter(dollarPrice, 18, 2)} USD` : '$0.00'}</CurrentPrice>
-            <SockCount>
+            <EthCount>
               {reservePINOToken && totalSupply
                 ? `${amountFormatter(reservePINOToken, 18, 0)}/${totalSupply} available`
                 : ''}
-            </SockCount>
+            </EthCount>
           </span>
           <Link to="/stats">
             <Info>
@@ -76,7 +76,7 @@ const SubTitle = styled.p`
   font-feature-settings: 'tnum' on, 'onum' on;
 `
 
-const SockCount = styled.p`
+const EthCount = styled.p`
   color: #aeaeae;
   font-weight: 400;
   margin: 0px;

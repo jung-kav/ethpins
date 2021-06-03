@@ -203,7 +203,7 @@ export default function BuyAndSell({
           <CurrentPrice>
             {/* {dollarPrice && `$${amountFormatter(dollarPrice, 18, 2)} USD`} */}
             <USDPrice>{renderFormData()}</USDPrice>
-            <SockCount>{reservePINOToken && `${amountFormatter(reservePINOToken, 18, 0)}/500 available`}</SockCount>
+            <EthCount>{reservePINOToken && `${amountFormatter(reservePINOToken, 18, 0)}/500 available`}</EthCount>
           </CurrentPrice>
           <IncrementToken />
         </InfoFrame>
@@ -313,7 +313,7 @@ const ImgStyle = styled.img`
   padding: 2rem 0 2rem 0;
   box-sizing: border-box;
 `
-const SockCount = styled.span`
+const EthCount = styled.span`
   color: #aeaeae;
   font-weight: 400;
   margin: 0px;

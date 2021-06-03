@@ -26,7 +26,7 @@ const config = {
   stagger: 0,
   width: '10px',
   height: '10px',
-  colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a']
+  colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
 }
 
 export function Controls({ closeCheckout, theme, type }) {
@@ -57,7 +57,7 @@ export default function Redeem({
   dollarize,
   setCurrentTransaction,
   setShowConnect,
-  closeCheckout
+  closeCheckout,
 }) {
   const { library, account, setConnector } = useWeb3Context()
   const [state] = useAppContext()
@@ -110,7 +110,7 @@ export default function Redeem({
             <ImgStyle src={pac} alt="Logo" hasPickedAmount={hasPickedAmount} />
             <InfoFrame pending={pending}>
               <Owned>
-                <SockCount>You own {balancePINO && `${amountFormatter(balancePINO, 18, 0)}`}</SockCount>
+                <EthCount>You own {balancePINO && `${amountFormatter(balancePINO, 18, 0)}`}</EthCount>
                 <p>Redeem PINO</p>
               </Owned>
               <IncrementToken
@@ -183,7 +183,7 @@ export default function Redeem({
                     fontWeight: '500',
                     color: '#AEAEAE',
                     marginTop: '16px',
-                    marginRight: '16px'
+                    marginRight: '16px',
                   }}
                 >
                   {userAddress}
@@ -203,7 +203,7 @@ export default function Redeem({
                     color: '#AEAEAE',
                     marginTop: '16px',
                     marginRight: '16px',
-                    wordBreak: 'break-all'
+                    wordBreak: 'break-all',
                   }}
                 >
                   {account}
@@ -229,10 +229,10 @@ export default function Redeem({
             type={'cta'}
             onClick={() => {
               burn(numberBurned.toString())
-                .then(response => {
+                .then((response) => {
                   setTransactionHash(response.hash)
                 })
-                .catch(error => {
+                .catch((error) => {
                   console.error(error)
                   // setTransactionHash(
                   //   true
@@ -324,7 +324,7 @@ const FrameControls = styled.div`
 `
 
 const Unicorn = styled.p`
-  color: ${props => (props.theme === 'dark' ? '#000' : '#fff')};
+  color: ${(props) => (props.theme === 'dark' ? '#000' : '#fff')};
   font-weight: 600;
   margin: 0px;
   font-size: 16px;
@@ -344,26 +344,26 @@ const Close = styled.img`
 `
 
 const InfoFrame = styled.div`
-  opacity: ${props => (props.pending ? 0.6 : 1)};
+  opacity: ${(props) => (props.pending ? 0.6 : 1)};
   width: 100%;
   font-size: 20px;
   font-weight: 500;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  margin-top: ${props => (props.hasPickedAmount ? '8px' : '0')};
-  justify-content: ${props => (props.hasPickedAmount ? 'flex-start' : 'space-between')};
+  margin-top: ${(props) => (props.hasPickedAmount ? '8px' : '0')};
+  justify-content: ${(props) => (props.hasPickedAmount ? 'flex-start' : 'space-between')};
   align-items: flex-end;
-  padding: ${props => (props.hasPickedAmount ? '1rem 0 1rem 0' : ' 0')};
+  padding: ${(props) => (props.hasPickedAmount ? '1rem 0 1rem 0' : ' 0')};
   /* padding: 1rem 0 1rem 0; */
   margin-top: 12px;
   /* margin-bottom: 8px; */
-  /* margin-right: ${props => (props.hasPickedAmount ? '8px' : '0px')}; */
+  /* margin-right: ${(props) => (props.hasPickedAmount ? '8px' : '0px')}; */
 
   border-radius: 6px;
 
-  /* background-color: ${props => (props.hasPickedAmount ? '#000' : 'none')}; */
-  border: ${props => (props.hasPickedAmount ? '1px solid #3d3d3d' : 'none')};
+  /* background-color: ${(props) => (props.hasPickedAmount ? '#000' : 'none')}; */
+  border: ${(props) => (props.hasPickedAmount ? '1px solid #3d3d3d' : 'none')};
 `
 
 const Owned = styled.div`
@@ -379,7 +379,7 @@ const Bonus = styled.div`
   font-weight: 500;
   font-size: 12px;
   padding: 4px;
-  background-color: ${props => props.theme.uniswapPink};
+  background-color: ${(props) => props.theme.uniswapPink};
   border-radius: 4px;
   position: absolute;
   top: 200px;
@@ -387,17 +387,17 @@ const Bonus = styled.div`
 `
 
 const ImgStyle = styled.img`
-  width: ${props => (props.hasPickedAmount ? (props.hasBurnt ? '300px' : '120px') : '300px')};
-  padding: ${props => (props.hasPickedAmount ? (props.hasBurnt ? '0px' : '0 1rem 0 0') : '2rem 0 2rem 0')};
+  width: ${(props) => (props.hasPickedAmount ? (props.hasBurnt ? '300px' : '120px') : '300px')};
+  padding: ${(props) => (props.hasPickedAmount ? (props.hasBurnt ? '0px' : '0 1rem 0 0') : '2rem 0 2rem 0')};
   box-sizing: border-box;
 `
-const SockCount = styled.span`
+const EthCount = styled.span`
   color: #aeaeae;
   font-weight: 400;
   font-size: 14px;
   width: 100%;
   margin-bottom: 0.5rem;
-  color: ${props => props.theme.uniswapPink};
+  color: ${(props) => props.theme.uniswapPink};
   cursor: pointer;
 
   :hover {
@@ -415,7 +415,7 @@ const Back = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* color: ${props => props.theme.uniswapPink}; */
+  /* color: ${(props) => props.theme.uniswapPink}; */
   text-align: center;
   span {
     cursor: pointer;
@@ -447,7 +447,7 @@ const RedeemFrame = styled(RedeemForm)`
 
 const EtherscanLink = styled.a`
   text-decoration: none;
-  color: ${props => props.theme.uniswapPink};
+  color: ${(props) => props.theme.uniswapPink};
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
