@@ -154,17 +154,9 @@ export default function BuyAndSell({
   function renderFormData() {
     let conditionalRender
     if (buying && buyValidationState.inputValue) {
-      conditionalRender = (
-        <>
-          <p>${ready && amountFormatter(dollarize(buyValidationState.inputValue), 18, 2)}</p>
-        </>
-      )
+      conditionalRender = <p>${ready && amountFormatter(dollarize(buyValidationState.inputValue), 18, 2)}</p>
     } else if (selling && sellValidationState.outputValue) {
-      conditionalRender = (
-        <>
-          <p>${ready && amountFormatter(dollarize(sellValidationState.outputValue), 18, 2)}</p>
-        </>
-      )
+      conditionalRender = <p>${ready && amountFormatter(dollarize(sellValidationState.outputValue), 18, 2)}</p>
     } else {
       conditionalRender = <p>$0.00</p>
     }
