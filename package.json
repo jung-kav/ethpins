@@ -7,6 +7,8 @@
     "@uniswap/v2-core": "^1.0.1",
     "@walletconnect/web3-subprovider": "^1.4.1",
     "ethers": "^4.0.27",
+    "hardhat-ethers": "^1.0.1",
+    "hardhat-waffle": "^0.0.1-security",
     "http-proxy-middleware": "^0.19.1",
     "qrcode.react": "^0.9.3",
     "react": "^16.8.6",
