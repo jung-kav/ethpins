@@ -177,7 +177,6 @@ export default function BuyAndSell({
   return (
     <>
       <TopFrame>
-        {/* <button onClick={() => fake()}>pac</button> */}
         <Unicorn>
           <span role="img" aria-label="unicorn">
             🦄
@@ -187,7 +186,6 @@ export default function BuyAndSell({
         <ImgStyle src={pac} alt="Logo" />
         <InfoFrame pending={pending}>
           <CurrentPrice>
-            {/* {dollarPrice && `$${amountFormatter(dollarPrice, 18, 2)} USD`} */}
             <USDPrice>{renderFormData()}</USDPrice>
             <EthCount>{reservePINOToken && `${amountFormatter(reservePINOToken, 18, 0)}/500 available`}</EthCount>
           </CurrentPrice>
