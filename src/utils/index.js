@@ -150,8 +150,7 @@ export function amountFormatter(amount, baseDecimals = 18, displayDecimals = 3, 
       else {
         const [wholeComponent, decimalComponent] = stringAmount.split('.')
         const roundUpAmount = minimumDisplayAmount.div(ethers.constants.Two)
-        const roundedDecimalComponent = ethers.utils
-          .bigNumberify(decimalComponent.padEnd(baseDecimals, '0'))
+        const roundedDecimalComponent = ethers.BigNumber.from(decimalComponent.padEnd(baseDecimals, '0'))
           .add(roundUpAmount)
           .toString()
           .padStart(baseDecimals, '0')
