@@ -18,7 +18,7 @@ const Network = new NetworkOnlyConnector({
     [REACT_APP_CHAIN_ID]: REACT_APP_PROVIDER_URL,
   },
 })
-const Injected = new InjectedConnector({ supportedNetworks: [REACT_APP_CHAIN_ID], defaultNetwork: REACT_APP_CHAIN_ID })
+const Injected = new InjectedConnector({ supportedChainIds: [REACT_APP_CHAIN_ID] })
 
 const connectors = { Network, Injected }
 
