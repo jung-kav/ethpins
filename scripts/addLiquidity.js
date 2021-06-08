@@ -1,7 +1,13 @@
 const hre = require('hardhat')
 const ethers = require('ethers')
+const UniswapV2Token = require('@uniswap/v2-core/build/ERC20.json')
+const UniswapV2Pair = require('@uniswap/v2-core/build/UniswapV2Pair.json')
+const UniswapV2Factory = require('@uniswap/v2-core/build/UniswapV2Factory.json')
 const UniswapV2Router02 = require('@uniswap/v2-periphery/build/UniswapV2Router02.json')
 
+const UNISWAP_TOKEN_ABI = UniswapV2Token.abi
+const UNISWAP_FACTORY_ABI = UniswapV2Factory.abi
+const UNISWAP_PAIR_ABI = UniswapV2Pair.abi
 const UNISWAP_ROUTER_ABI = UniswapV2Router02.abi
 
 async function main() {
