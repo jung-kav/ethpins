@@ -113,9 +113,9 @@ export default function Body({ totalSupply, ready, balancePINO }) {
                     {d.NFTTransactionHash && (
                       <EtherscanLink
                         style={{ marginBottom: '.5rem' }}
-                        href={`https://${process.env.REACT_APP_CHAIN_ID === 3 ? 'ropsten.' : ''}etherscan.io/tx/${
-                          d.NFTTransactionHash
-                        }`}
+                        href={`https://${
+                          parseInt(process.env.REACT_APP_CHAIN_ID) === 3 ? 'ropsten.' : ''
+                        }etherscan.io/tx/${d.NFTTransactionHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >

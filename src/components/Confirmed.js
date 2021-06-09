@@ -52,7 +52,7 @@ export default function Confirmed({ hash, type, amount, clearLastTransaction, cl
   const [state, setState] = useAppContext()
 
   function link(hash) {
-    return `https://${process.env.REACT_APP_CHAIN_ID === 3 ? 'ropsten.' : ''}etherscan.io/tx/${hash}`
+    return `https://${parseInt(process.env.REACT_APP_CHAIN_ID) === 3 ? 'ropsten.' : ''}etherscan.io/tx/${hash}`
   }
 
   useEffect(() => {

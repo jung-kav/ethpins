@@ -28,7 +28,7 @@ const Desc = styled.p`
 `
 
 export function link(hash) {
-  return `https://${process.env.REACT_APP_CHAIN_ID === 3 ? 'ropsten.' : ''}etherscan.io/tx/${hash}`
+  return `https://${parseInt(process.env.REACT_APP_CHAIN_ID) === 3 ? 'ropsten.' : ''}etherscan.io/tx/${hash}`
 }
 
 export const EtherscanLink = styled.a`

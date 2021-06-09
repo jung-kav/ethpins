@@ -84,7 +84,7 @@ export default function BuyAndSell({
   const [validationError, setValidationError] = useState()
 
   function link(hash) {
-    return `https://${process.env.REACT_APP_CHAIN_ID === 3 ? 'ropsten.' : ''}etherscan.io/tx/${hash}`
+    return `https://${parseInt(process.env.REACT_APP_CHAIN_ID) === 3 ? 'ropsten.' : ''}etherscan.io/tx/${hash}`
   }
 
   function getText(account, buying, errorMessage, isReady, pending, hash) {
