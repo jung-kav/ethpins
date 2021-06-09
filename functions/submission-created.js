@@ -1,9 +1,11 @@
-import { ethers } from 'ethers'
+const { ethers } = require('ethers')
 const faunadb = require('faunadb')
+
+console.log(process.env.FAUNADB_SERVER_SECRET)
 
 const q = faunadb.query
 const client = new faunadb.Client({
-  secret: process.env.FAUNADB_SERVER_SECRET
+  secret: process.env.FAUNADB_SERVER_SECRET,
 })
 
 function isAddress(value) {
@@ -17,14 +19,14 @@ function isAddress(value) {
 function returnError(message, statusCode = 400) {
   return {
     statusCode,
-    body: JSON.stringify({ error: message })
+    body: JSON.stringify({ error: message }),
   }
 }
 
 function returnSuccess(data, statusCode = 200) {
   return {
     statusCode,
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   }
 }
 
@@ -44,7 +46,7 @@ export async function handler(event) {
     address: _address,
     timestamp,
     'number-burned': numberBurned,
-    signature
+    signature,
   } = data
 
   const address = isAddress(_address)
@@ -79,13 +81,13 @@ export async function handler(event) {
             state,
             zip,
             country,
-            email
+            email,
           },
           addressEthereum: address,
           signature,
           invalid: isInvalid,
-          matched: false
-        }
+          matched: false,
+        },
       })
     )
     return returnSuccess({ message: 'Success' })

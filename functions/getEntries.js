@@ -1,9 +1,11 @@
-import { ethers } from 'ethers'
+const { ethers } = require('ethers')
 const faunadb = require('faunadb')
+
+console.log(process.env.FAUNADB_SERVER_SECRET)
 
 const q = faunadb.query
 const client = new faunadb.Client({
-  secret: process.env.FAUNADB_SERVER_SECRET
+  secret: process.env.FAUNADB_SERVER_SECRET,
 })
 
 function isAddress(value) {
@@ -17,14 +19,14 @@ function isAddress(value) {
 function returnError(message, statusCode = 400) {
   return {
     statusCode,
-    body: JSON.stringify({ error: message })
+    body: JSON.stringify({ error: message }),
   }
 }
 
 function returnSuccess(data, statusCode = 200) {
   return {
     statusCode,
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   }
 }
 
@@ -51,8 +53,8 @@ export async function handler(event) {
       return returnSuccess([])
     }
 
-    const query = await client.query(allRefs.data.map(ref => q.Get(ref)))
-    return returnSuccess(query.map(res => res.data))
+    const query = await client.query(allRefs.data.map((ref) => q.Get(ref)))
+    return returnSuccess(query.map((res) => res.data))
   } catch (error) {
     console.error(error)
     return returnError('Unknown Error')
