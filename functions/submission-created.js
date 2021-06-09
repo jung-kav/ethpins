@@ -1,11 +1,9 @@
 const { ethers } = require('ethers')
 const faunadb = require('faunadb')
 
-console.log(process.env.FAUNADB_SERVER_SECRET)
-
 const q = faunadb.query
 const client = new faunadb.Client({
-  secret: process.env.FAUNADB_SERVER_SECRET,
+  secret: `${process.env.FAUNADB_SERVER_SECRET}`,
 })
 
 function isAddress(value) {
@@ -31,6 +29,7 @@ function returnSuccess(data, statusCode = 200) {
 }
 
 export async function handler(event) {
+  console.log(event)
   const { payload } = JSON.parse(event.body)
   const { data } = payload
 
