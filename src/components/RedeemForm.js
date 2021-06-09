@@ -4,13 +4,11 @@ import styled from 'styled-components'
 import { useWeb3Context } from 'web3-react'
 import ReCAPTCHA from 'react-google-recaptcha'
 
-import Suggest from './Suggest'
-
 // we need to capture the full address into netlify...
 // https://www.netlify.com/blog/2017/07/20/how-to-integrate-netlifys-form-handling-in-a-react-app/
 function encode(data) {
   return Object.keys(data)
-    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
     .join('&')
 }
 
@@ -41,7 +39,7 @@ const nameMap = {
   [email]: 'Email',
   [address]: 'Ethereum Address',
   [timestamp]: 'Time',
-  [numberBurned]: 'PINO Redeemed'
+  [numberBurned]: 'PINO Redeemed',
 }
 
 // the order for fields that will be submitted
@@ -57,7 +55,7 @@ const defaultState = {
   [state]: '',
   [zip]: '',
   [country]: '',
-  [email]: ''
+  [email]: '',
 }
 
 // mapping from field to google maps return value
@@ -66,7 +64,7 @@ const addressMapping = [
   { [city]: 'sublocality' },
   { [state]: 'administrative_area_level_1' },
   { [zip]: 'postal_code' },
-  { [country]: 'country' }
+  { [country]: 'country' },
 ]
 
 const recaptchaEnabled = false
@@ -82,42 +80,42 @@ export default function RedeemForm({ setHasConfirmedAddress, setUserAddress, num
 
   function handleChange(event) {
     const { name, value } = event.target
-    setFormState(state => ({ ...state, [name]: value }))
+    setFormState((state) => ({ ...state, [name]: value }))
   }
 
   function updateAutoFields(address) {
     let constructedStreetAddress = ''
     function getTypes(addressItem, addressVal, item) {
-      addressItem.forEach(type => {
+      addressItem.forEach((type) => {
         if (Object.keys(item)[0] === line1) {
           if (type === 'street_number') {
             constructedStreetAddress += addressVal
           } else if (type === 'route') {
             constructedStreetAddress += ' ' + addressVal
           }
-          setFormState(state => ({ ...state, [Object.keys(item)[0]]: constructedStreetAddress }))
+          setFormState((state) => ({ ...state, [Object.keys(item)[0]]: constructedStreetAddress }))
         } else if (Object.keys(item)[0] === city) {
           if (type === 'sublocality' || type === 'locality') {
-            setFormState(state => ({ ...state, [Object.keys(item)[0]]: addressVal }))
+            setFormState((state) => ({ ...state, [Object.keys(item)[0]]: addressVal }))
           }
         } else if (Object.keys(item)[0] === state) {
           if (type === 'administrative_area_level_1') {
-            setFormState(state => ({ ...state, [Object.keys(item)[0]]: addressVal }))
+            setFormState((state) => ({ ...state, [Object.keys(item)[0]]: addressVal }))
           }
         } else if (Object.keys(item)[0] === country) {
           if (type === 'country') {
-            setFormState(state => ({ ...state, [Object.keys(item)[0]]: addressVal }))
+            setFormState((state) => ({ ...state, [Object.keys(item)[0]]: addressVal }))
           }
         } else if (Object.keys(item)[0] === zip) {
           if (type === 'postal_code') {
-            setFormState(state => ({ ...state, [Object.keys(item)[0]]: addressVal }))
+            setFormState((state) => ({ ...state, [Object.keys(item)[0]]: addressVal }))
           }
         }
       })
     }
 
-    addressMapping.forEach(item => {
-      address.forEach(addressItem => {
+    addressMapping.forEach((item) => {
+      address.forEach((addressItem) => {
         getTypes(addressItem.types, addressItem.long_name, item)
       })
     })
@@ -136,14 +134,14 @@ export default function RedeemForm({ setHasConfirmedAddress, setUserAddress, num
     }
   }, [suggestEl])
 
-  const canSign =
-    formState[name] &&
-    formState[line1] &&
-    formState[city] &&
-    formState[state] &&
-    formState[zip] &&
-    formState[country] &&
-    formState[email]
+  const canSign = true
+  // formState[name] &&
+  // formState[line1] &&
+  // formState[city] &&
+  // formState[state] &&
+  // formState[zip] &&
+  // formState[country] &&
+  // formState[email]
 
   function onRecaptcha(value) {
     if (value) {
@@ -164,11 +162,7 @@ export default function RedeemForm({ setHasConfirmedAddress, setUserAddress, num
         autoComplete="name"
       />
       <Compressed>
-        <Suggest
-          required
-          myRef={suggestEl}
-          inputY={inputY}
-          setAutoAddress={setAutoAddress}
+        <input
           type="text"
           name={line1}
           value={formState[line1]}
@@ -176,7 +170,6 @@ export default function RedeemForm({ setHasConfirmedAddress, setUserAddress, num
           placeholder={nameMap[line1]}
           autoComplete="off"
         />
-
         <input
           type="text"
           name={line2}
@@ -242,15 +235,15 @@ export default function RedeemForm({ setHasConfirmedAddress, setUserAddress, num
       <ButtonFrame
         type="submit"
         disabled={!canSign || (recaptchaEnabled && !!!recaptcha)}
-        onClick={event => {
+        onClick={(event) => {
           const signer = library.getSigner()
           const timestampToSign = Math.round(Date.now() / 1000)
 
           const header = `PLEASE VERIFY YOUR ADDRESS.\nYour data will never be shared publicly.`
-          const formDataMessage = nameOrder.map(o => `${nameMap[o]}: ${formState[o]}`).join('\n')
+          const formDataMessage = nameOrder.map((o) => `${nameMap[o]}: ${formState[o]}`).join('\n')
           const autoMessage = `${nameMap[address]}: ${account}\n${nameMap[timestamp]}: ${timestampToSign}\n${nameMap[numberBurned]}: ${actualNumberBurned}`
 
-          signer.signMessage(`${header}\n\n${formDataMessage}\n${autoMessage}`).then(returnedSignature => {
+          signer.signMessage(`${header}\n\n${formDataMessage}\n${autoMessage}`).then((returnedSignature) => {
             fetch('/', {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -262,9 +255,9 @@ export default function RedeemForm({ setHasConfirmedAddress, setUserAddress, num
                   [timestamp]: timestampToSign,
                   [numberBurned]: actualNumberBurned,
                   [signature]: returnedSignature,
-                  ...(recaptchaEnabled ? { 'g-recaptcha-response': recaptcha } : {})
-                }
-              })
+                  ...(recaptchaEnabled ? { 'g-recaptcha-response': recaptcha } : {}),
+                },
+              }),
             })
               .then(() => {
                 setHasConfirmedAddress(true)
@@ -336,13 +329,13 @@ const ButtonFrame = styled.button`
   line-height: 1;
   border: none;
   cursor: pointer;
-  pointer-events: ${props => (props.disabled ? 'none' : 'auto')};
+  pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
 
   background: linear-gradient(97.28deg, #fe6dde 2.08%, #ff9dea 106.51%);
   box-shadow: 0px 4px 20px rgba(239, 162, 250, 0.7);
-  background: ${props => (props.disabled ? '#f1f2f6' : 'linear-gradient(97.28deg, #fe6dde 2.08%, #ff9dea 106.51%)')};
-  box-shadow: ${props => (props.disabled ? 'none' : '0px 4px 20px rgba(239, 162, 250, 0.7)')};
-  color: ${props => (props.disabled ? '#aeaeae' : props.theme.white)};
+  background: ${(props) => (props.disabled ? '#f1f2f6' : 'linear-gradient(97.28deg, #fe6dde 2.08%, #ff9dea 106.51%)')};
+  box-shadow: ${(props) => (props.disabled ? 'none' : '0px 4px 20px rgba(239, 162, 250, 0.7)')};
+  color: ${(props) => (props.disabled ? '#aeaeae' : props.theme.white)};
   transform: scale(1);
   transition: transform 0.3s ease;
   text-align: center;
