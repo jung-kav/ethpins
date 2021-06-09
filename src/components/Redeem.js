@@ -113,10 +113,7 @@ export default function Redeem({
                 <EthCount>You own {balancePINO && `${amountFormatter(balancePINO, 18, 0)}`}</EthCount>
                 <p>Redeem PINO</p>
               </Owned>
-              <IncrementToken
-                initialValue={Number(amountFormatter(balancePINO, 18, 0))}
-                max={Number(amountFormatter(balancePINO, 18, 0))}
-              />
+              <IncrementToken initialValue={Number(1)} max={Number(amountFormatter(balancePINO, 18, 0))} />
             </InfoFrame>
           </TopFrame>
           <ButtonFrame
