@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "ethers": "^5.3.0",
-    "faunadb": "^2.6.1"
+    "faunadb": "^4.3.0"
   }
 }
