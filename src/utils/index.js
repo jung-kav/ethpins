@@ -11,20 +11,10 @@ const ERC20_ABI = Token.abi
 const EXCHANGE_ABI = Exchange.abi
 const FACTORY_ABI = Factory.abi
 
-const PINO_ADDRESSES_BY_CHAIN = {
-  1: '', // TODO: Update after deploying to mainnet
-  [REACT_APP_CHAIN_ID]: process.env.REACT_APP_PINO_ADDRESS,
-}
-
-const DAI_ADDRESSES_BY_CHAIN = {
-  1: '0xad6d458402f60fd3bd25163575031acdce07538d',
-  [REACT_APP_CHAIN_ID]: process.env.REACT_APP_DAI_ADDRESS,
-}
-
 export const TOKEN_ADDRESSES = {
   ETH: 'ETH',
-  DAI: DAI_ADDRESSES_BY_CHAIN[REACT_APP_CHAIN_ID],
-  PINO: PINO_ADDRESSES_BY_CHAIN[REACT_APP_CHAIN_ID],
+  DAI: process.env.REACT_APP_DAI_ADDRESS,
+  PINO: process.env.REACT_APP_PINO_ADDRESS,
 }
 
 export const TOKEN_SYMBOLS = Object.keys(TOKEN_ADDRESSES).reduce((o, k) => {
