@@ -84,13 +84,7 @@ export default function Body({ totalSupply, ready, balancePINO }) {
                 return (
                   <OrderDiv key={i}>
                     <ul>
-                      <li>
-                        Order Date:{' '}
-                        {new Date(Number(d.timestamp) * 1000).toLocaleDateString(undefined, {
-                          dateStyle: 'long',
-                          timeStyle: 'short',
-                        })}
-                      </li>
+                      <li>Order Date: {new Date(Number(d.timestamp) * 1000).toLocaleDateString()}</li>
                       <li>PINO Redeemed: {d.numberOfEthpins}</li>
                       <li>
                         Status:{' '}
