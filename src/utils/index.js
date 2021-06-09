@@ -1,5 +1,5 @@
 import { ethers } from 'ethers'
-import { FACTORY_ADDRESS } from '@uniswap/sdk'
+import { FACTORY_ADDRESS, WETH } from '@uniswap/sdk'
 import Exchange from '@uniswap/v2-core/build/UniswapV2Pair.json'
 import Factory from '@uniswap/v2-core/build/UniswapV2Factory.json'
 
@@ -80,7 +80,10 @@ export function getExchangeContract(exchangeAddress, library, account) {
 }
 
 export async function getTokenExchangeAddressFromFactory(tokenAddress, library, account) {
-  return getContract(FACTORY_ADDRESS, FACTORY_ABI, library, account).getPair(tokenAddress, TOKEN_ADDRESSES.PINO)
+  return getContract(FACTORY_ADDRESS, FACTORY_ABI, library, account).getPair(
+    tokenAddress,
+    WETH[REACT_APP_CHAIN_ID].address
+  )
 }
 
 // get the ether balance of an address
