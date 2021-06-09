@@ -48,6 +48,7 @@ export async function handler(event) {
   try {
     const allRefs = await client.query(q.Paginate(q.Match(q.Index('get_by_address'), address)))
 
+    console.log('result: ', allRefs)
     if (allRefs.data.length === 0) {
       return returnSuccess([])
     }
