@@ -30,7 +30,7 @@ export default function Body({ totalSupply, ready, balancePINO }) {
     const timestampToSign = Math.round(Date.now() / 1000)
     const signer = library.getSigner()
     const message = `This signature is proof that I control the private key of ${account} as of the timestamp ${timestampToSign}.\n\n It will be used to access my Ethpins order history.`
-    signer.signMessage(message).then(returnedSignature => {
+    signer.signMessage(message).then((returnedSignature) => {
       setTimestamp(timestampToSign)
       setSignature(returnedSignature)
     })
@@ -40,8 +40,8 @@ export default function Body({ totalSupply, ready, balancePINO }) {
     if (account && signature && timestamp) {
       fetch('/.netlify/functions/getEntries', {
         method: 'POST',
-        body: JSON.stringify({ address: account, signature: signature, timestamp: timestamp })
-      }).then(async response => {
+        body: JSON.stringify({ address: account, signature: signature, timestamp: timestamp }),
+      }).then(async (response) => {
         if (response.status !== 200) {
           const parsed = await response.json().catch(() => ({ error: 'Unknown Error' }))
           console.error(parsed.error)
@@ -88,7 +88,7 @@ export default function Body({ totalSupply, ready, balancePINO }) {
                         Order Date:{' '}
                         {new Date(Number(d.timestamp) * 1000).toLocaleDateString(undefined, {
                           dateStyle: 'long',
-                          timeStyle: 'short'
+                          timeStyle: 'short',
                         })}
                       </li>
                       <li>PINO Redeemed: {d.numberOfEthpins}</li>
@@ -119,7 +119,9 @@ export default function Body({ totalSupply, ready, balancePINO }) {
                     {d.NFTTransactionHash && (
                       <EtherscanLink
                         style={{ marginBottom: '.5rem' }}
-                        href={`https://etherscan.io/tx/${d.NFTTransactionHash}`}
+                        href={`https://${process.env.REACT_APP_CHAIN_ID === 3 ? 'ropsten.' : ''}etherscan.io/tx/${
+                          d.NFTTransactionHash
+                        }`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -156,9 +158,9 @@ const AppWrapper = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
-  overflow: ${props => (props.overlay ? 'hidden' : 'scroll')};
+  overflow: ${(props) => (props.overlay ? 'hidden' : 'scroll')};
   scroll-behavior: smooth;
-  position: ${props => (props.overlay ? 'fixed' : 'initial')};
+  position: ${(props) => (props.overlay ? 'fixed' : 'initial')};
 `
 
 const Content = styled.div`

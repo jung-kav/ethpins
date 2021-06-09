@@ -84,7 +84,7 @@ export default function Redeem({
   })
 
   function link(hash) {
-    return `https://etherscan.io/tx/${hash}`
+    return `https://${process.env.REACT_APP_CHAIN_ID === 3 ? 'ropsten.' : ''}etherscan.io/tx/${hash}`
   }
 
   function renderContent() {

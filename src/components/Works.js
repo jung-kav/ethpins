@@ -28,12 +28,12 @@ const Desc = styled.p`
 `
 
 export function link(hash) {
-  return `https://etherscan.io/tx/${hash}`
+  return `https://${process.env.REACT_APP_CHAIN_ID === 3 ? 'ropsten.' : ''}etherscan.io/tx/${hash}`
 }
 
 export const EtherscanLink = styled.a`
   text-decoration: none;
-  color: ${props => props.theme.uniswapPink};
+  color: ${(props) => props.theme.uniswapPink};
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -53,8 +53,8 @@ export default function Works({ closeCheckout }) {
       </Desc>
       <Title>How it's priced:</Title>
       <Desc>
-        $PINO tokens are listed starting at $12 USD. Each buy/sell will move the price. The increase or decrease
-        follows a{' '}
+        $PINO tokens are listed starting at $12 USD. Each buy/sell will move the price. The increase or decrease follows
+        a{' '}
         <a
           href="https://blog.relevant.community/bonding-curves-in-depth-intuition-parametrization-d3905a681e0a"
           target="_blank"

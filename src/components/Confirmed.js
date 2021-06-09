@@ -52,7 +52,7 @@ export default function Confirmed({ hash, type, amount, clearLastTransaction, cl
   const [state, setState] = useAppContext()
 
   function link(hash) {
-    return `https://etherscan.io/tx/${hash}`
+    return `https://${process.env.REACT_APP_CHAIN_ID === 3 ? 'ropsten.' : ''}etherscan.io/tx/${hash}`
   }
 
   useEffect(() => {
@@ -103,7 +103,7 @@ export default function Confirmed({ hash, type, amount, clearLastTransaction, cl
           type={'cta'}
           onClick={() => {
             clearLastTransaction()
-            setState(state => ({ ...state, tradeType: TRADE_TYPES.REDEEM }))
+            setState((state) => ({ ...state, tradeType: TRADE_TYPES.REDEEM }))
             // Trigger buy frame here!
           }}
         />
@@ -187,8 +187,8 @@ const InfoFrame = styled.div`
   margin-top: 12px;
   margin-bottom: 8px;
   border-radius: 6px;
-  /* background-color: ${props => (props.hasPickedAmount ? '#000' : 'none')}; */
-  /* border: ${props => (props.hasPickedAmount ? '1px solid #3d3d3d' : 'none')}; */
+  /* background-color: ${(props) => (props.hasPickedAmount ? '#000' : 'none')}; */
+  /* border: ${(props) => (props.hasPickedAmount ? '1px solid #3d3d3d' : 'none')}; */
 `
 
 const Owned = styled.div`
@@ -217,7 +217,7 @@ const CheckoutPrompt = styled.p`
 `
 const EtherscanLink = styled.a`
   text-decoration: none;
-  color: ${props => props.theme.uniswapPink};
+  color: ${(props) => props.theme.uniswapPink};
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
