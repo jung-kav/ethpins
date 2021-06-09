@@ -251,7 +251,7 @@ export default function Main({ stats, status }) {
     const contract = buyingPINO ? tokenContractSelectedToken : tokenContractPINO
     const spenderAddress = buyingPINO ? exchangeContractSelectedToken.address : exchangeContractPINO.address
 
-    const estimatedGasLimit = await contract.estimate.approve(spenderAddress, ethers.constants.MaxUint256)
+    const estimatedGasLimit = await contract.estimateGas.approve(spenderAddress, ethers.constants.MaxUint256)
     const estimatedGasPrice = await library
       .getGasPrice()
       .then((gasPrice) => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
@@ -351,7 +351,7 @@ export default function Main({ stats, status }) {
       .then((gasPrice) => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
     if (selectedTokenSymbol === TOKEN_SYMBOLS.ETH) {
-      const estimatedGasLimit = await exchangeContractPINO.estimate.ethToTokenSwapOutput(outputValue, deadline, {
+      const estimatedGasLimit = await exchangeContractPINO.estimateGas.ethToTokenSwapOutput(outputValue, deadline, {
         value: maximumInputValue,
       })
       return exchangeContractPINO.ethToTokenSwapOutput(outputValue, deadline, {
@@ -360,7 +360,7 @@ export default function Main({ stats, status }) {
         gasPrice: estimatedGasPrice,
       })
     } else {
-      const estimatedGasLimit = await exchangeContractSelectedToken.estimate.tokenToTokenSwapOutput(
+      const estimatedGasLimit = await exchangeContractSelectedToken.estimateGas.tokenToTokenSwapOutput(
         outputValue,
         maximumInputValue,
         ethers.constants.MaxUint256,
@@ -469,7 +469,7 @@ export default function Main({ stats, status }) {
       .then((gasPrice) => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
     if (selectedTokenSymbol === TOKEN_SYMBOLS.ETH) {
-      const estimatedGasLimit = await exchangeContractPINO.estimate.tokenToEthSwapInput(
+      const estimatedGasLimit = await exchangeContractPINO.estimateGas.tokenToEthSwapInput(
         inputValue,
         minimumOutputValue,
         deadline
@@ -479,7 +479,7 @@ export default function Main({ stats, status }) {
         gasPrice: estimatedGasPrice,
       })
     } else {
-      const estimatedGasLimit = await exchangeContractPINO.estimate.tokenToTokenSwapInput(
+      const estimatedGasLimit = await exchangeContractPINO.estimateGas.tokenToTokenSwapInput(
         inputValue,
         minimumOutputValue,
         ethers.constants.One,
@@ -507,7 +507,7 @@ export default function Main({ stats, status }) {
       .getGasPrice()
       .then((gasPrice) => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
-    const estimatedGasLimit = await tokenContractPINO.estimate.burn(parsedAmount)
+    const estimatedGasLimit = await tokenContractPINO.estimateGas.burn(parsedAmount)
 
     return tokenContractPINO.burn(parsedAmount, {
       gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
