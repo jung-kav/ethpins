@@ -48,17 +48,7 @@ export function Controls({ closeCheckout, theme, type }) {
   )
 }
 
-export default function Redeem({
-  burn,
-  balancePINO,
-  balance,
-  ready,
-  unlock,
-  dollarize,
-  setCurrentTransaction,
-  setShowConnect,
-  closeCheckout,
-}) {
+export default function Redeem({ burn, balancePINO, setShowConnect, closeCheckout }) {
   const { library, account, setConnector } = useWeb3Context()
   const [state] = useAppContext()
 
@@ -208,20 +198,10 @@ export default function Redeem({
               </Owned>
             </InfoFrame>
           </TopFrame>
-          {/* <Back
-            onClick={() => {
-              setHasConfirmedAddress(false)
-            }}
-          >
-            back
-          </Back>
-          <Count>2/3</Count>
-          <CheckoutPrompt>BURN THE PINO?</CheckoutPrompt> */}
           <ButtonFrame
             className="button"
             disabled={pending}
             pending={pending}
-            // text={pending ? `Waiting for confirmation...` : `Redeem ${numberBurned} PINO`}
             text={pending ? `Waiting for confirmation...` : `Place order (Redeem ${numberBurned} PINO) `}
             type={'cta'}
             onClick={() => {
@@ -231,11 +211,6 @@ export default function Redeem({
                 })
                 .catch((error) => {
                   console.error(error)
-                  // setTransactionHash(
-                  //   true
-                  //     ? '0x888503cb966a67192afb74c740abaec0b7e8bda370bc8f853fb040eab247c63f'
-                  //     : '0x66dac079f7ee27ba7b2cae27eaabf64574c2011aacd007968be6d282b3c2065b'
-                  // )
                 })
             }}
           />
