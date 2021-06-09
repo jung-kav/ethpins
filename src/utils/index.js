@@ -13,12 +13,12 @@ const FACTORY_ADDRESS = '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f'
 
 const PINO_ADDRESSES_BY_CHAIN = {
   1: '', // TODO: Update after deploying to mainnet
-  [process.env.REACT_APP_CHAIN_ID]: process.env.REACT_APP_HARDHAT_CHAIN_PINO_ADDRESS,
+  [process.env.REACT_APP_CHAIN_ID]: process.env.REACT_APP_PINO_ADDRESS,
 }
 
 const DAI_ADDRESSES_BY_CHAIN = {
   1: '0xad6d458402f60fd3bd25163575031acdce07538d',
-  [process.env.REACT_APP_CHAIN_ID]: '0xad6d458402f60fd3bd25163575031acdce07538d',
+  [process.env.REACT_APP_CHAIN_ID]: process.env.REACT_APP_DAI_ADDRESS,
 }
 
 export const TOKEN_ADDRESSES = {
