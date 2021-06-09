@@ -72,8 +72,8 @@ const recaptchaEnabled = false
 export default function RedeemForm({ setHasConfirmedAddress, setUserAddress, numberBurned: actualNumberBurned }) {
   const { library, account } = useWeb3Context()
   const [recaptcha, setRecaptcha] = useState()
-  const [autoAddress, setAutoAddress] = useState([])
-  const [inputY, setInputY] = useState(0)
+  const [autoAddress] = useState([])
+  const [, setInputY] = useState(0)
   const suggestEl = useRef()
 
   const [formState, setFormState] = useState(defaultState)
