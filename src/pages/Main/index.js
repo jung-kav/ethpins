@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useWeb3Context } from 'web3-react'
 import { ethers } from 'ethers'
-import { WETH } from '@uniswap/sdk'
 
-import { TOKEN_ADDRESSES } from '../../utils'
+import { TOKEN_ADDRESSES, WETH_ADDRESS } from '../../utils'
 import {
   useTokenContract,
   useExchangeContract,
@@ -56,7 +55,7 @@ export default function Main({ stats, status }) {
 
   // get token contracts
   const tokenContractPINO = useTokenContract(TOKEN_ADDRESSES.PINO)
-  const tokenContractETH = useTokenContract(WETH[process.env.REACT_APP_CHAIN_ID].address)
+  const tokenContractETH = useTokenContract(WETH_ADDRESS)
 
   // get balances
   const balanceETH = useAddressBalance(account, TOKEN_ADDRESSES.ETH)
@@ -67,19 +66,13 @@ export default function Main({ stats, status }) {
 
   // get allowances
   const allowancePINO = useExchangeAllowance(account, TOKEN_ADDRESSES.PINO)
-  const allowanceETH = useExchangeAllowance(account, WETH[process.env.REACT_APP_CHAIN_ID].address)
+  const allowanceETH = useExchangeAllowance(account, WETH_ADDRESS)
 
   // get reserves
-  const reserveETH = useAddressBalance(
-    exchangeContractPINO && exchangeContractPINO.address,
-    WETH[process.env.REACT_APP_CHAIN_ID].address
-  )
+  const reserveETH = useAddressBalance(exchangeContractPINO && exchangeContractPINO.address, WETH_ADDRESS)
   const reservePINO = useAddressBalance(exchangeContractPINO && exchangeContractPINO.address, TOKEN_ADDRESSES.PINO)
 
-  const reserveDAIETH = useAddressBalance(
-    exchangeContractDAI && exchangeContractDAI.address,
-    WETH[process.env.REACT_APP_CHAIN_ID].address
-  )
+  const reserveDAIETH = useAddressBalance(exchangeContractDAI && exchangeContractDAI.address, WETH_ADDRESS)
   const reserveDAIToken = useAddressBalance(exchangeContractDAI && exchangeContractDAI.address, TOKEN_ADDRESSES.DAI)
 
   const [USDExchangeRateETH, setUSDExchangeRateETH] = useState()

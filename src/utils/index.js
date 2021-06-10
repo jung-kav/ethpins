@@ -6,7 +6,7 @@ import Factory from '@uniswap/v2-core/build/UniswapV2Factory.json'
 import Token from './Ethpins.json'
 import UncheckedJsonRpcSigner from './signer'
 
-const { REACT_APP_CHAIN_ID, REACT_APP_DAI_ADDRESS, REACT_APP_PINO_ADDRESS } = process.env
+const { REACT_APP_CHAIN_ID } = process.env
 const ERC20_ABI = Token.abi
 const EXCHANGE_ABI = Exchange.abi
 const FACTORY_ABI = Factory.abi
@@ -17,10 +17,30 @@ export const FACTORY_ADDRESSES = {
   97: '0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc',
 }
 
+export const WETH_ADDRESSES = {
+  1: WETH[1].address,
+  3: WETH[3].address,
+  97: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
+}
+
+export const DAI_ADDRESSES = {
+  1: '0x6b175474e89094c44da98b954eedeac495271d0f',
+  3: '0xad6d458402f60fd3bd25163575031acdce07538d',
+  97: '',
+}
+
+export const PINO_ADDRESSES = {
+  1: '',
+  3: '0xbdde47f4ded0fb048b73da0f8020d41e0aabb57a',
+  97: '0x064b19b1CE07A63eB12fB2869Ff666f466008f03',
+}
+
+export const WETH_ADDRESS = WETH_ADDRESSES[REACT_APP_CHAIN_ID]
+
 export const TOKEN_ADDRESSES = {
   ETH: 'ETH',
-  DAI: REACT_APP_DAI_ADDRESS,
-  PINO: REACT_APP_PINO_ADDRESS,
+  DAI: DAI_ADDRESSES[REACT_APP_CHAIN_ID],
+  PINO: PINO_ADDRESSES[REACT_APP_CHAIN_ID],
 }
 
 export const TOKEN_SYMBOLS = Object.keys(TOKEN_ADDRESSES).reduce((o, k) => {
