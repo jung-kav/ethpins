@@ -98,7 +98,7 @@ export function getExchangeContract(exchangeAddress, library, account) {
 export async function getTokenExchangeAddressFromFactory(tokenAddress, library, account) {
   return getContract(FACTORY_ADDRESSES[REACT_APP_CHAIN_ID], FACTORY_ABI, library, account).getPair(
     tokenAddress,
-    WETH[REACT_APP_CHAIN_ID].address
+    WETH[REACT_APP_CHAIN_ID]
   )
 }
 
