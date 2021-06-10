@@ -26,7 +26,7 @@ export const WETH_ADDRESSES = {
 export const DAI_ADDRESSES = {
   1: '0x6b175474e89094c44da98b954eedeac495271d0f',
   3: '0xad6d458402f60fd3bd25163575031acdce07538d',
-  97: '',
+  97: '0x0be6c9a1037cdfbb013a73ca361e84662278d551',
 }
 
 export const PINO_ADDRESSES = {
