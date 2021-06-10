@@ -161,10 +161,6 @@ export default function Main({ stats, status }) {
     <Body
       ready={ready}
       unlock={unlock}
-      validateBuy={() => {}}
-      buy={() => {}}
-      validateSell={() => {}}
-      sell={() => {}}
       burn={burn}
       dollarize={dollarize}
       dollarPrice={dollarPrice}

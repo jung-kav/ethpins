@@ -136,10 +136,6 @@ const Status = styled.div`
 export default function Body({
   ready,
   unlock,
-  validateBuy,
-  buy,
-  validateSell,
-  sell,
   burn,
   dollarize,
   dollarPrice,
@@ -197,10 +193,6 @@ export default function Body({
       <Checkout
         ready={ready}
         unlock={unlock}
-        validateBuy={validateBuy}
-        buy={buy}
-        validateSell={validateSell}
-        sell={sell}
         burn={burn}
         balancePINO={balancePINO}
         dollarPrice={dollarPrice}
