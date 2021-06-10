@@ -11,6 +11,12 @@ const ERC20_ABI = Token.abi
 const EXCHANGE_ABI = Exchange.abi
 const FACTORY_ABI = Factory.abi
 
+export const FACTORY_ADDRESSES = {
+  1: FACTORY_ADDRESS,
+  3: FACTORY_ADDRESS,
+  97: '0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc',
+}
+
 export const TOKEN_ADDRESSES = {
   ETH: 'ETH',
   DAI: REACT_APP_DAI_ADDRESS,
@@ -70,7 +76,7 @@ export function getExchangeContract(exchangeAddress, library, account) {
 }
 
 export async function getTokenExchangeAddressFromFactory(tokenAddress, library, account) {
-  return getContract(FACTORY_ADDRESS, FACTORY_ABI, library, account).getPair(
+  return getContract(FACTORY_ADDRESSES[REACT_APP_CHAIN_ID], FACTORY_ABI, library, account).getPair(
     tokenAddress,
     WETH[REACT_APP_CHAIN_ID].address
   )
