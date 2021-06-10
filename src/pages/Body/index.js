@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 
 import { useAppContext } from '../../context'
 import Card from '../../components/Card'
-import BuyButtons from '../../components/Buttons'
 import RedeemButton from '../../components/RedeemButton'
+import BuySellButtons from '../../components/BuySellButtons'
 import Checkout from '../../components/Checkout'
 import { amountFormatter } from '../../utils'
 
@@ -182,8 +182,8 @@ export default function Body({
             </a>
           </div>
         </Info>
-        <BuyButtons balancePINO={balancePINO} />
         <RedeemButton balancePINO={balancePINO} />
+        <BuySellButtons balancePINO={balancePINO} />
         {!!account && (
           <Link style={{ textDecoration: 'none' }} to="/status">
             <OrderStatusLink>Check order status?</OrderStatusLink>
