@@ -7,7 +7,6 @@ import {
   useTokenContract,
   useExchangeContract,
   useAddressBalance,
-  useAddressAllowance,
   useExchangeReserves,
   useExchangeAllowance,
   useTotalSupply,
@@ -170,11 +169,7 @@ export default function Main({ stats, status }) {
   const totalSupply = useTotalSupply(tokenContractPINO)
 
   // get allowances
-  const allowancePINO = useAddressAllowance(
-    account,
-    TOKEN_ADDRESSES.PINO,
-    exchangeContractPINO && exchangeContractPINO.address
-  )
+  const allowancePINO = useExchangeAllowance(account, TOKEN_ADDRESSES.PINO)
   const allowanceSelectedToken = useExchangeAllowance(account, TOKEN_ADDRESSES[selectedTokenSymbol])
 
   // get reserves
@@ -254,7 +249,7 @@ export default function Main({ stats, status }) {
     const estimatedGasLimit = await contract.estimateGas.approve(spenderAddress, ethers.constants.MaxUint256)
     const estimatedGasPrice = await library
       .getGasPrice()
-      .then((gasPrice) => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
+      .then(gasPrice => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
     return contract.approve(spenderAddress, ethers.constants.MaxUint256, {
       gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
@@ -264,7 +259,7 @@ export default function Main({ stats, status }) {
 
   // buy functionality
   const validateBuy = useCallback(
-    (numberOfPINO) => {
+    numberOfPINO => {
       // validate passed amount
       let parsedValue
       try {
@@ -348,7 +343,7 @@ export default function Main({ stats, status }) {
 
     const estimatedGasPrice = await library
       .getGasPrice()
-      .then((gasPrice) => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
+      .then(gasPrice => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
     if (selectedTokenSymbol === TOKEN_SYMBOLS.ETH) {
       const estimatedGasLimit = await exchangeContractPINO.estimateGas.ethToTokenSwapOutput(outputValue, deadline, {
@@ -383,7 +378,7 @@ export default function Main({ stats, status }) {
 
   // sell functionality
   const validateSell = useCallback(
-    (numberOfPINO) => {
+    numberOfPINO => {
       // validate passed amount
       let parsedValue
       try {
@@ -466,7 +461,7 @@ export default function Main({ stats, status }) {
 
     const estimatedGasPrice = await library
       .getGasPrice()
-      .then((gasPrice) => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
+      .then(gasPrice => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
     if (selectedTokenSymbol === TOKEN_SYMBOLS.ETH) {
       const estimatedGasLimit = await exchangeContractPINO.estimateGas.tokenToEthSwapInput(
@@ -505,7 +500,7 @@ export default function Main({ stats, status }) {
 
     const estimatedGasPrice = await library
       .getGasPrice()
-      .then((gasPrice) => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
+      .then(gasPrice => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
     const estimatedGasLimit = await tokenContractPINO.estimateGas.burn(parsedAmount)
 
