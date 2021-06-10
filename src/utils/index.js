@@ -6,15 +6,15 @@ import Factory from '@uniswap/v2-core/build/UniswapV2Factory.json'
 import Token from './Ethpins.json'
 import UncheckedJsonRpcSigner from './signer'
 
-const { REACT_APP_CHAIN_ID } = process.env
+const { REACT_APP_CHAIN_ID, REACT_APP_DAI_ADDRESS, REACT_APP_PINO_ADDRESS } = process.env
 const ERC20_ABI = Token.abi
 const EXCHANGE_ABI = Exchange.abi
 const FACTORY_ABI = Factory.abi
 
 export const TOKEN_ADDRESSES = {
   ETH: 'ETH',
-  DAI: process.env.REACT_APP_DAI_ADDRESS,
-  PINO: process.env.REACT_APP_PINO_ADDRESS,
+  DAI: REACT_APP_DAI_ADDRESS,
+  PINO: REACT_APP_PINO_ADDRESS,
 }
 
 export const TOKEN_SYMBOLS = Object.keys(TOKEN_ADDRESSES).reduce((o, k) => {
