@@ -3,7 +3,7 @@ import { useWeb3Context } from 'web3-react'
 import { ethers } from 'ethers'
 import { WETH } from '@uniswap/sdk'
 
-import { TOKEN_SYMBOLS, TOKEN_ADDRESSES } from '../../utils'
+import { TOKEN_ADDRESSES } from '../../utils'
 import {
   useTokenContract,
   useExchangeContract,
@@ -159,8 +159,6 @@ export default function Main({ stats, status }) {
     <Status totalSupply={totalSupply} ready={ready} balancePINO={balancePINO} />
   ) : (
     <Body
-      selectedTokenSymbol={TOKEN_SYMBOLS.ETH}
-      setSelectedTokenSymbol={() => {}}
       ready={ready}
       unlock={unlock}
       validateBuy={() => {}}
