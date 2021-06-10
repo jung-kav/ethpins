@@ -30,12 +30,10 @@
     "start": "run-p start:**",
     "start:app": "react-scripts start",
     "start:functions": "netlify-lambda serve functions -c ./webpack.config.js",
-    "start:hardhat": "hardhat node",
     "prebuild": "cd functions/ && yarn",
     "build": "run-p build:**",
     "build:app": "react-scripts build",
     "build:functions": "netlify-lambda build functions -c ./webpack.config.js",
-    "deploy:hardhat": "hardhat run scripts/deploy.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "now-build": "react-scripts build"
