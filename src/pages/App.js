@@ -7,18 +7,20 @@ import Web3ReactManager from '../components/Web3ReactManager'
 import AppProvider from '../context'
 import Main from './Main'
 
-const { REACT_APP_PROVIDER_URL = 'http://localhost:8545', REACT_APP_CHAIN_ID = 31337 } = process.env
+const { REACT_APP_CHAIN_ID } = process.env
+const PROVIDER_URLS = {
+  3: 'https://eth-ropsten.alchemyapi.io/v2/MFBQ3O5eVKvOxVY61SbrN-_KdxJgu9m6',
+  97: 'https://apis.ankr.com/12fd59f781714a0a88e3e3f6859c9b0a/03394fb0b7c9ec31ca8ff50341130493/binance/full/test',
+}
 
 const { NetworkOnlyConnector, InjectedConnector } = Connectors
 const Network = new NetworkOnlyConnector({
-  providerURL: REACT_APP_PROVIDER_URL,
+  providerURL: PROVIDER_URLS[REACT_APP_CHAIN_ID],
   defaultNetwork: REACT_APP_CHAIN_ID,
-  supportedNetworks: [REACT_APP_CHAIN_ID],
-  supportedNetworkURLs: {
-    [REACT_APP_CHAIN_ID]: REACT_APP_PROVIDER_URL,
-  },
+  supportedNetworks: [3, 97],
+  supportedNetworkURLs: PROVIDER_URLS,
 })
-const Injected = new InjectedConnector({ supportedChainIds: [REACT_APP_CHAIN_ID] })
+const Injected = new InjectedConnector({ supportedChainIds: [3, 97] })
 
 const connectors = { Network, Injected }
 

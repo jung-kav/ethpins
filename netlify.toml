@@ -11,10 +11,8 @@
 
 [context.production]
   [context.production.environment]
-    REACT_APP_PROVIDER_URL = "https://eth-ropsten.alchemyapi.io/v2/MFBQ3O5eVKvOxVY61SbrN-_KdxJgu9m6"
     REACT_APP_CHAIN_ID = "3"
 
 [context.bnbtest]
   [context.bnbtest.environment]
-    REACT_APP_PROVIDER_URL = "https://apis.ankr.com/12fd59f781714a0a88e3e3f6859c9b0a/03394fb0b7c9ec31ca8ff50341130493/binance/full/test"
     REACT_APP_CHAIN_ID = "97"
