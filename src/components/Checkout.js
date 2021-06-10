@@ -4,11 +4,9 @@ import { useWeb3Context } from 'web3-react'
 
 import Connect from './Connect'
 import Works from './Works'
-import BuyAndSell from './BuyAndSell'
 import Redeem from './Redeem'
 import Confirmed from './Confirmed'
 import { useAppContext } from '../context'
-import { TRADE_TYPES } from '../utils'
 
 import Confetti from 'react-dom-confetti'
 
@@ -22,7 +20,7 @@ const config = {
   stagger: 0,
   width: '10px',
   height: '10px',
-  colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a']
+  colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
 }
 
 export function useCount(initialValue, max) {
@@ -60,18 +58,9 @@ export function useCount(initialValue, max) {
 }
 
 export default function Checkout({
-  selectedTokenSymbol,
-  setSelectedTokenSymbol,
   ready,
-  unlock,
-  validateBuy,
-  buy,
-  validateSell,
-  sell,
   burn,
   balancePINO,
-  dollarPrice,
-  reservePINOToken,
   dollarize,
   currentTransactionHash,
   currentTransactionType,
@@ -81,12 +70,10 @@ export default function Checkout({
   setShowConnect,
   showConnect,
   showWorks,
-  setShowWorks
+  setShowWorks,
 }) {
   const { library } = useWeb3Context()
   const [state, setState] = useAppContext()
-
-  const redeeming = state.tradeType === TRADE_TYPES.REDEEM
 
   const [lastTransactionHash, setLastTransactionHash] = useState('')
   const [lastTransactionType, setLastTransactionType] = useState('')
@@ -113,7 +100,7 @@ export default function Checkout({
     clearCurrentTransaction,
     lastTransactionHash,
     currentTransactionType,
-    currentTransactionAmount
+    currentTransactionAmount,
   ])
 
   function closeCheckout() {
@@ -145,40 +132,18 @@ export default function Checkout({
         />
       )
     } else {
-      if (!redeeming) {
-        return (
-          <BuyAndSell
-            selectedTokenSymbol={selectedTokenSymbol}
-            setSelectedTokenSymbol={setSelectedTokenSymbol}
-            ready={ready}
-            unlock={unlock}
-            validateBuy={validateBuy}
-            buy={buy}
-            validateSell={validateSell}
-            sell={sell}
-            dollarize={dollarize}
-            setCurrentTransaction={setCurrentTransaction}
-            currentTransactionHash={currentTransactionHash}
-            setShowConnect={setShowConnect}
-            dollarPrice={dollarPrice}
-            reservePINOToken={reservePINOToken}
-            pending={pending}
-          />
-        )
-      } else {
-        return (
-          <Redeem
-            ready={ready}
-            burn={burn}
-            balancePINO={balancePINO}
-            dollarize={dollarize}
-            setCurrentTransaction={setCurrentTransaction}
-            setShowConnect={setShowConnect}
-            closeCheckout={closeCheckout}
-            pending={pending}
-          />
-        )
-      }
+      return (
+        <Redeem
+          ready={ready}
+          burn={burn}
+          balancePINO={balancePINO}
+          dollarize={dollarize}
+          setCurrentTransaction={setCurrentTransaction}
+          setShowConnect={setShowConnect}
+          closeCheckout={closeCheckout}
+          pending={pending}
+        />
+      )
     }
   }
 
