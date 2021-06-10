@@ -9,18 +9,22 @@ module.exports = {
   defaultNetwork: 'hardhat',
   networks: {
     mainnet: {
-      url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_MAINNET_ID}`,
+      url: process.env.ALCHEMY_MAINNET_API,
       accounts: [process.env.MAINNET_PRIVATE_KEY],
     },
     hardhat: {
       forking: {
-        url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_FORKED_MAINNET_ID}`,
+        url: process.env.ALCHEMY_FORKED_MAINNET_API,
         blockNumber: 12456360,
       },
     },
     ropsten: {
-      url: `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_ROPSTEN_ID}`,
+      url: process.env.ALCHEMY_ROPSTEN_API,
       accounts: [process.env.ROPSTEN_PRIVATE_KEY],
+    },
+    bnbtest: {
+      url: process.env.ANKR_BNB_TESTNET_API,
+      accounts: [process.env.BNB_TESTNET_PRIVATE_KEY],
     },
   },
 }
