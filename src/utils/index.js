@@ -1,5 +1,5 @@
 import { ethers } from 'ethers'
-import { FACTORY_ADDRESS, WETH } from '@uniswap/sdk'
+import { FACTORY_ADDRESS as UNISWAP_FACTORY_ADDRESS, WETH } from '@uniswap/sdk'
 import Exchange from '@uniswap/v2-core/build/UniswapV2Pair.json'
 import Factory from '@uniswap/v2-core/build/UniswapV2Factory.json'
 
@@ -12,31 +12,31 @@ const FACTORY_ABI = Factory.abi
 
 export const CHAIN_ID = parseInt(process.env.REACT_APP_CHAIN_ID)
 
-export const FACTORY_ADDRESSES = {
-  1: FACTORY_ADDRESS,
-  3: FACTORY_ADDRESS,
+const FACTORY_ADDRESSES = {
+  1: UNISWAP_FACTORY_ADDRESS,
+  3: UNISWAP_FACTORY_ADDRESS,
   97: '0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc',
 }
 
-export const WETH_ADDRESSES = {
+const WETH_ADDRESSES = {
   1: WETH[1].address,
   3: WETH[3].address,
   97: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
 }
 
-export const DAI_ADDRESSES = {
+export const WETH_ADDRESS = WETH_ADDRESSES[CHAIN_ID]
+
+const DAI_ADDRESSES = {
   1: '0x6b175474e89094c44da98b954eedeac495271d0f',
   3: '0xad6d458402f60fd3bd25163575031acdce07538d',
   97: '0x0be6c9a1037cdfbb013a73ca361e84662278d551',
 }
 
-export const PINO_ADDRESSES = {
+const PINO_ADDRESSES = {
   1: '',
   3: '0xbdde47f4ded0fb048b73da0f8020d41e0aabb57a',
   97: '0x064b19b1CE07A63eB12fB2869Ff666f466008f03',
 }
-
-export const WETH_ADDRESS = WETH_ADDRESSES[CHAIN_ID]
 
 export const TOKEN_ADDRESSES = {
   ETH: 'ETH',
@@ -64,6 +64,26 @@ export const TRADE_TYPES = ['BUY', 'SELL', 'UNLOCK', 'REDEEM'].reduce((o, k, i) 
   o[k] = i
   return o
 }, {})
+
+const BLOCK_EXPLORER_DOMAINS = {
+  1: 'etherscan.io',
+  3: 'ropsten.etherscan.io',
+  97: 'testnet.bscscan.com',
+}
+
+export const BLOCK_EXPLORER_DOMAIN = BLOCK_EXPLORER_DOMAINS[CHAIN_ID]
+const EXCHANGE_BASE_URIS = {
+  1: 'https://app.uniswap.org/#/swap?use=V2&',
+  3: 'https://app.uniswap.org/#/swap?use=V2&',
+  97: 'https://pancake.kiemtienonline360.com/#/swap?',
+}
+
+export const EXCHANGE_BASE_URI = EXCHANGE_BASE_URIS[CHAIN_ID]
+
+export const generateExchangeUri = (operation = 'buy') =>
+  operation === 'sell'
+    ? `${EXCHANGE_BASE_URI}inputCurrency=${TOKEN_ADDRESSES.PINO}&outputCurrency=ETH&exactAmount=1&exactField=input`
+    : `${EXCHANGE_BASE_URI}outputCurrency=${TOKEN_ADDRESSES.PINO}&inputCurrency=ETH&exactAmount=1&exactField=output`
 
 export function isAddress(value) {
   try {

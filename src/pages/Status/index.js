@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useWeb3Context } from 'web3-react'
 
-import { CHAIN_ID } from '../../utils'
+import { BLOCK_EXPLORER_DOMAIN } from '../../utils'
 import { useAppContext } from '../../context'
 import { Redirect } from 'react-router-dom'
 import { Header } from '../Body'
@@ -115,7 +115,7 @@ export default function Body({ totalSupply, ready, balancePINO }) {
                     {d.NFTTransactionHash && (
                       <EtherscanLink
                         style={{ marginBottom: '.5rem' }}
-                        href={`https://${CHAIN_ID === 3 ? 'ropsten.' : ''}etherscan.io/tx/${d.NFTTransactionHash}`}
+                        href={`https://${BLOCK_EXPLORER_DOMAIN}/tx/${d.NFTTransactionHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
