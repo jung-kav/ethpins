@@ -6,7 +6,7 @@ import Factory from '@uniswap/v2-core/build/UniswapV2Factory.json'
 import Token from './Ethpins.json'
 import UncheckedJsonRpcSigner from './signer'
 
-const { REACT_APP_CHAIN_ID } = process.env
+const CHAIN_ID = parseInt(process.env.REACT_APP_CHAIN_ID)
 const ERC20_ABI = Token.abi
 const EXCHANGE_ABI = Exchange.abi
 const FACTORY_ABI = Factory.abi
@@ -35,12 +35,12 @@ export const PINO_ADDRESSES = {
   97: '0x064b19b1CE07A63eB12fB2869Ff666f466008f03',
 }
 
-export const WETH_ADDRESS = WETH_ADDRESSES[REACT_APP_CHAIN_ID]
+export const WETH_ADDRESS = WETH_ADDRESSES[CHAIN_ID]
 
 export const TOKEN_ADDRESSES = {
   ETH: 'ETH',
-  DAI: DAI_ADDRESSES[REACT_APP_CHAIN_ID],
-  PINO: PINO_ADDRESSES[REACT_APP_CHAIN_ID],
+  DAI: DAI_ADDRESSES[CHAIN_ID],
+  PINO: PINO_ADDRESSES[CHAIN_ID],
 }
 
 export const TOKEN_SYMBOLS = Object.keys(TOKEN_ADDRESSES).reduce((o, k) => {
@@ -96,10 +96,7 @@ export function getExchangeContract(exchangeAddress, library, account) {
 }
 
 export async function getTokenExchangeAddressFromFactory(tokenAddress, library, account) {
-  return getContract(FACTORY_ADDRESSES[REACT_APP_CHAIN_ID], FACTORY_ABI, library, account).getPair(
-    tokenAddress,
-    WETH_ADDRESS
-  )
+  return getContract(FACTORY_ADDRESSES[CHAIN_ID], FACTORY_ABI, library, account).getPair(tokenAddress, WETH_ADDRESS)
 }
 
 // get the ether balance of an address
