@@ -10,17 +10,28 @@ const ERC20_ABI = Token.abi
 const EXCHANGE_ABI = Exchange.abi
 const FACTORY_ABI = Factory.abi
 
+export const SUPPORTED_CHAIN_IDS = [1, 3, 56, 97]
+
 export const CHAIN_ID = parseInt(process.env.REACT_APP_CHAIN_ID || '3')
+
+export const PROVIDER_URLS = {
+  1: 'https://eth-mainnet.alchemyapi.io/v2/V_XMymXguqc_HQxI3dPeL7bFEhktnnWD',
+  3: 'https://eth-ropsten.alchemyapi.io/v2/MFBQ3O5eVKvOxVY61SbrN-_KdxJgu9m6',
+  56: 'https://apis.ankr.com/d8eee8f401a8471887cec0f978ca5400/03394fb0b7c9ec31ca8ff50341130493/binance/full/main',
+  97: 'https://apis.ankr.com/12fd59f781714a0a88e3e3f6859c9b0a/03394fb0b7c9ec31ca8ff50341130493/binance/full/test',
+}
 
 const FACTORY_ADDRESSES = {
   1: UNISWAP_FACTORY_ADDRESS,
   3: UNISWAP_FACTORY_ADDRESS,
+  56: '0xBCfCcbde45cE874adCB698cC183deBcF17952812',
   97: '0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc',
 }
 
 const WETH_ADDRESSES = {
   1: WETH[1].address,
   3: WETH[3].address,
+  56: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
   97: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
 }
 
@@ -29,12 +40,14 @@ export const WETH_ADDRESS = WETH_ADDRESSES[CHAIN_ID]
 const DAI_ADDRESSES = {
   1: '0x6b175474e89094c44da98b954eedeac495271d0f',
   3: '0xad6d458402f60fd3bd25163575031acdce07538d',
+  56: '0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3',
   97: '0x0be6c9a1037cdfbb013a73ca361e84662278d551',
 }
 
 const PINO_ADDRESSES = {
-  1: '',
+  1: '', // TODO: fill in after deploying to Ethereum Mainnet
   3: '0xbdde47f4ded0fb048b73da0f8020d41e0aabb57a',
+  56: '', // TODO: fill in after deploying to Binance Smart Chain Mainnet
   97: '0x064b19b1CE07A63eB12fB2869Ff666f466008f03',
 }
 
@@ -52,6 +65,7 @@ export const TRADE_TYPES = ['BUY', 'SELL', 'UNLOCK', 'REDEEM'].reduce((o, k, i) 
 const BLOCK_EXPLORER_DOMAINS = {
   1: 'etherscan.io',
   3: 'ropsten.etherscan.io',
+  56: 'bscscan.com',
   97: 'testnet.bscscan.com',
 }
 
@@ -60,6 +74,7 @@ export const BLOCK_EXPLORER_DOMAIN = BLOCK_EXPLORER_DOMAINS[CHAIN_ID]
 const EXCHANGE_BASE_URIS = {
   1: 'https://app.uniswap.org/#/swap?use=V2&',
   3: 'https://app.uniswap.org/#/swap?use=V2&',
+  56: 'https://exchange.pancakeswap.finance/#/swap?',
   97: 'https://pancake.kiemtienonline360.com/#/swap?',
 }
 
