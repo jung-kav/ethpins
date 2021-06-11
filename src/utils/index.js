@@ -44,22 +44,6 @@ export const TOKEN_ADDRESSES = {
   PINO: PINO_ADDRESSES[CHAIN_ID],
 }
 
-export const TOKEN_SYMBOLS = Object.keys(TOKEN_ADDRESSES).reduce((o, k) => {
-  o[k] = k
-  return o
-}, {})
-
-export const ERROR_CODES = [
-  'INVALID_AMOUNT',
-  'INVALID_TRADE',
-  'INSUFFICIENT_ETH_GAS',
-  'INSUFFICIENT_SELECTED_TOKEN_BALANCE',
-  'INSUFFICIENT_ALLOWANCE',
-].reduce((o, k, i) => {
-  o[k] = i
-  return o
-}, {})
-
 export const TRADE_TYPES = ['BUY', 'SELL', 'UNLOCK', 'REDEEM'].reduce((o, k, i) => {
   o[k] = i
   return o
