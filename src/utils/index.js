@@ -6,10 +6,11 @@ import Factory from '@uniswap/v2-core/build/UniswapV2Factory.json'
 import Token from './Ethpins.json'
 import UncheckedJsonRpcSigner from './signer'
 
-const CHAIN_ID = parseInt(process.env.REACT_APP_CHAIN_ID)
 const ERC20_ABI = Token.abi
 const EXCHANGE_ABI = Exchange.abi
 const FACTORY_ABI = Factory.abi
+
+export const CHAIN_ID = parseInt(process.env.REACT_APP_CHAIN_ID)
 
 export const FACTORY_ADDRESSES = {
   1: FACTORY_ADDRESS,
