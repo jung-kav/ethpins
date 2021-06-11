@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useWeb3Context } from 'web3-react'
+
+import { BLOCK_EXPLORER_DOMAIN } from '../../utils'
 import { useAppContext } from '../../context'
 import { Redirect } from 'react-router-dom'
 import { Header } from '../Body'
@@ -30,7 +32,7 @@ export default function Body({ totalSupply, ready, balancePINO }) {
     const timestampToSign = Math.round(Date.now() / 1000)
     const signer = library.getSigner()
     const message = `This signature is proof that I control the private key of ${account} as of the timestamp ${timestampToSign}.\n\n It will be used to access my Ethpins order history.`
-    signer.signMessage(message).then((returnedSignature) => {
+    signer.signMessage(message).then(returnedSignature => {
       setTimestamp(timestampToSign)
       setSignature(returnedSignature)
     })
@@ -41,7 +43,7 @@ export default function Body({ totalSupply, ready, balancePINO }) {
       fetch('/.netlify/functions/getEntries', {
         method: 'POST',
         body: JSON.stringify({ address: account, signature: signature, timestamp: timestamp }),
-      }).then(async (response) => {
+      }).then(async response => {
         if (response.status !== 200) {
           const parsed = await response.json().catch(() => ({ error: 'Unknown Error' }))
           console.error(parsed.error)
@@ -113,9 +115,7 @@ export default function Body({ totalSupply, ready, balancePINO }) {
                     {d.NFTTransactionHash && (
                       <EtherscanLink
                         style={{ marginBottom: '.5rem' }}
-                        href={`https://${
-                          parseInt(process.env.REACT_APP_CHAIN_ID) === 3 ? 'ropsten.' : ''
-                        }etherscan.io/tx/${d.NFTTransactionHash}`}
+                        href={`https://${BLOCK_EXPLORER_DOMAIN}/tx/${d.NFTTransactionHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -152,9 +152,9 @@ const AppWrapper = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
-  overflow: ${(props) => (props.overlay ? 'hidden' : 'scroll')};
+  overflow: ${props => (props.overlay ? 'hidden' : 'scroll')};
   scroll-behavior: smooth;
-  position: ${(props) => (props.overlay ? 'fixed' : 'initial')};
+  position: ${props => (props.overlay ? 'fixed' : 'initial')};
 `
 
 const Content = styled.div`

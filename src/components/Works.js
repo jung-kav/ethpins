@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { BLOCK_EXPLORER_DOMAIN } from '../utils'
 import { Controls } from './Redeem'
 
 const WorksFrame = styled.div`
@@ -28,12 +29,12 @@ const Desc = styled.p`
 `
 
 export function link(hash) {
-  return `https://${parseInt(process.env.REACT_APP_CHAIN_ID) === 3 ? 'ropsten.' : ''}etherscan.io/tx/${hash}`
+  return `https://${BLOCK_EXPLORER_DOMAIN}/tx/${hash}`
 }
 
 export const EtherscanLink = styled.a`
   text-decoration: none;
-  color: ${(props) => props.theme.uniswapPink};
+  color: ${props => props.theme.uniswapPink};
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
