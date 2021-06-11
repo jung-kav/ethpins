@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Button from './Button'
-import { generateExchangeUri } from '../utils'
+import { getExchangeUri } from '../utils'
 
 const ButtonsContainerFrame = styled.div`
   margin: 0.5rem 0rem 0.5rem 0rem;
@@ -33,7 +33,7 @@ export default function RedeemButton({ balancePINO }) {
         text={'Buy'}
         type={'secondary'}
         onClick={() => {
-          window.location.href = generateExchangeUri('buy')
+          window.location.href = getExchangeUri('buy')
         }}
       />
       <Shim />
@@ -42,7 +42,7 @@ export default function RedeemButton({ balancePINO }) {
         text={'Sell'}
         type={'secondary'}
         onClick={() => {
-          window.location.href = generateExchangeUri('sell')
+          window.location.href = getExchangeUri('sell')
         }}
       />
     </ButtonsContainerFrame>
