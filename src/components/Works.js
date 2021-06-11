@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { CHAIN_ID } from '../utils'
+import { BLOCK_EXPLORER_DOMAIN } from '../utils'
 import { Controls } from './Redeem'
 
 const WorksFrame = styled.div`
@@ -29,7 +29,7 @@ const Desc = styled.p`
 `
 
 export function link(hash) {
-  return `https://${CHAIN_ID === 3 ? 'ropsten.' : ''}etherscan.io/tx/${hash}`
+  return `https://${BLOCK_EXPLORER_DOMAIN}/tx/${hash}`
 }
 
 export const EtherscanLink = styled.a`

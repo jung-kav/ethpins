@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
-import { amountFormatter, TRADE_TYPES, CHAIN_ID } from '../utils'
+import { amountFormatter, TRADE_TYPES, BLOCK_EXPLORER_DOMAIN } from '../utils'
 import Button from './Button'
 
 import close from './Gallery/close.svg'
@@ -52,7 +52,7 @@ export default function Confirmed({ hash, type, amount, clearLastTransaction, cl
   const [state, setState] = useAppContext()
 
   function link(hash) {
-    return `https://${CHAIN_ID === 3 ? 'ropsten.' : ''}etherscan.io/tx/${hash}`
+    return `https://${BLOCK_EXPLORER_DOMAIN}/tx/${hash}`
   }
 
   useEffect(() => {
