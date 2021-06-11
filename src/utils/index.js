@@ -72,6 +72,7 @@ const BLOCK_EXPLORER_DOMAINS = {
 }
 
 export const BLOCK_EXPLORER_DOMAIN = BLOCK_EXPLORER_DOMAINS[CHAIN_ID]
+
 const EXCHANGE_BASE_URIS = {
   1: 'https://app.uniswap.org/#/swap?use=V2&',
   3: 'https://app.uniswap.org/#/swap?use=V2&',
