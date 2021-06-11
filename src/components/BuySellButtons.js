@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Button from './Button'
+import { TOKEN_ADDRESSES } from '../utils'
 
 const ButtonsContainerFrame = styled.div`
   margin: 0.5rem 0rem 0.5rem 0rem;
@@ -32,7 +33,7 @@ export default function RedeemButton({ balancePINO }) {
         text={'Buy'}
         type={'secondary'}
         onClick={() => {
-          window.location.href = `https://app.uniswap.org/#/swap?use=V2&outputCurrency=${process.env.REACT_APP_PINO_ADDRESS}&inputCurrency=ETH&exactAmount=1&exactField=output`
+          window.location.href = `https://app.uniswap.org/#/swap?use=V2&outputCurrency=${TOKEN_ADDRESSES.PINO}&inputCurrency=ETH&exactAmount=1&exactField=output`
         }}
       />
       <Shim />
@@ -41,7 +42,7 @@ export default function RedeemButton({ balancePINO }) {
         text={'Sell'}
         type={'secondary'}
         onClick={() => {
-          window.location.href = `https://app.uniswap.org/#/swap?use=V2&inputCurrency=${process.env.REACT_APP_PINO_ADDRESS}&outputCurrency=ETH&exactAmount=1&exactField=input`
+          window.location.href = `https://app.uniswap.org/#/swap?use=V2&inputCurrency=${TOKEN_ADDRESSES.PINO}&outputCurrency=ETH&exactAmount=1&exactField=input`
         }}
       />
     </ButtonsContainerFrame>
