@@ -10,7 +10,7 @@ const ERC20_ABI = Token.abi
 const EXCHANGE_ABI = Exchange.abi
 const FACTORY_ABI = Factory.abi
 
-export const CHAIN_ID = parseInt(process.env.REACT_APP_CHAIN_ID)
+export const CHAIN_ID = parseInt(process.env.REACT_APP_CHAIN_ID || '3')
 
 const FACTORY_ADDRESSES = {
   1: UNISWAP_FACTORY_ADDRESS,
