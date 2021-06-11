@@ -81,7 +81,7 @@ const EXCHANGE_BASE_URIS = {
 
 export const EXCHANGE_BASE_URI = EXCHANGE_BASE_URIS[CHAIN_ID]
 
-export const generateExchangeUri = (operation = 'buy') =>
+export const getExchangeUri = (operation = 'buy') =>
   operation === 'sell'
     ? `${EXCHANGE_BASE_URI}inputCurrency=${TOKEN_ADDRESSES.PINO}&outputCurrency=ETH&exactAmount=1&exactField=input`
     : `${EXCHANGE_BASE_URI}outputCurrency=${TOKEN_ADDRESSES.PINO}&inputCurrency=ETH&exactAmount=1&exactField=output`
