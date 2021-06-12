@@ -8,7 +8,7 @@ import Web3ReactManager from '../components/Web3ReactManager'
 import AppProvider from '../context'
 import Main from './Main'
 
-const supportedChainIds = PROVIDER_URLS.keys()
+const supportedChainIds = Object.keys(PROVIDER_URLS)
 
 const { NetworkOnlyConnector, InjectedConnector } = Connectors
 
