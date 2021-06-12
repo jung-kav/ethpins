@@ -10,8 +10,6 @@ import Main from './Main'
 
 const supportedChainIds = Object.keys(PROVIDER_URLS).map(chainId => parseInt(chainId))
 
-console.log(supportedChainIds)
-
 const { NetworkOnlyConnector, InjectedConnector } = Connectors
 
 const Network = new NetworkOnlyConnector({
