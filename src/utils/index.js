@@ -10,18 +10,40 @@ const ERC20_ABI = Token.abi
 const EXCHANGE_ABI = Exchange.abi
 const FACTORY_ABI = Factory.abi
 
-export const CHAIN_ID = parseInt(process.env.REACT_APP_CHAIN_ID || '3')
+const {
+  REACT_APP_CHAIN_ID = '3',
+  REACT_APP_LOCAL_EXCHANGE_BASE_URI = 'https://localhost:8546/#/swap?use=V2&',
+  REACT_APP_FORKED_MAINNET_ENDPOINT = 'http://localhost:8545',
+  REACT_APP_MAINNET_ENDPOINT,
+  REACT_APP_ROPSTEN_ENDPOINT,
+  REACT_APP_BINANCE_ENDPOINT,
+  REACT_APP_BINANCE_TESTNET_ENDPOINT,
+} = process.env
+
+export const CHAIN_ID = parseInt(REACT_APP_CHAIN_ID)
+
+export const PROVIDER_URLS = {
+  1: REACT_APP_MAINNET_ENDPOINT,
+  3: REACT_APP_ROPSTEN_ENDPOINT,
+  56: REACT_APP_BINANCE_ENDPOINT,
+  97: REACT_APP_BINANCE_TESTNET_ENDPOINT,
+  31337: REACT_APP_FORKED_MAINNET_ENDPOINT,
+}
 
 const FACTORY_ADDRESSES = {
   1: UNISWAP_FACTORY_ADDRESS,
   3: UNISWAP_FACTORY_ADDRESS,
+  56: '0xBCfCcbde45cE874adCB698cC183deBcF17952812',
   97: '0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc',
+  31337: UNISWAP_FACTORY_ADDRESS,
 }
 
 const WETH_ADDRESSES = {
   1: WETH[1].address,
   3: WETH[3].address,
+  56: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
   97: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
+  31337: WETH[1].address,
 }
 
 export const WETH_ADDRESS = WETH_ADDRESSES[CHAIN_ID]
@@ -29,14 +51,38 @@ export const WETH_ADDRESS = WETH_ADDRESSES[CHAIN_ID]
 const DAI_ADDRESSES = {
   1: '0x6b175474e89094c44da98b954eedeac495271d0f',
   3: '0xad6d458402f60fd3bd25163575031acdce07538d',
+  56: '0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3',
   97: '0x0be6c9a1037cdfbb013a73ca361e84662278d551',
+  31337: '0x6b175474e89094c44da98b954eedeac495271d0f',
 }
 
 const PINO_ADDRESSES = {
-  1: '',
+  1: '', // TODO: fill in after deploying to Ethereum Mainnet
   3: '0xbdde47f4ded0fb048b73da0f8020d41e0aabb57a',
+  56: '', // TODO: fill in after deploying to Binance Smart Chain Mainnet
   97: '0x064b19b1CE07A63eB12fB2869Ff666f466008f03',
+  31337: '0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E',
 }
+
+const BLOCK_EXPLORER_BASE_URIS = {
+  1: 'https://etherscan.io/tx',
+  3: 'https://ropsten.etherscan.io/tx',
+  56: 'https://bscscan.com/tx',
+  97: 'https://testnet.bscscan.com/tx',
+  31337: 'https://app.tryethernal.com/transactions',
+}
+
+export const BLOCK_EXPLORER_BASE_URI = BLOCK_EXPLORER_BASE_URIS[CHAIN_ID]
+
+const EXCHANGE_BASE_URIS = {
+  1: 'https://app.uniswap.org/#/swap?use=V2&',
+  3: 'https://app.uniswap.org/#/swap?use=V2&',
+  56: 'https://exchange.pancakeswap.finance/#/swap?',
+  97: 'https://pancake.kiemtienonline360.com/#/swap?',
+  31337: REACT_APP_LOCAL_EXCHANGE_BASE_URI,
+}
+
+export const EXCHANGE_BASE_URI = EXCHANGE_BASE_URIS[CHAIN_ID]
 
 export const TOKEN_ADDRESSES = {
   ETH: 'ETH',
@@ -48,22 +94,6 @@ export const TRADE_TYPES = ['BUY', 'SELL', 'UNLOCK', 'REDEEM'].reduce((o, k, i) 
   o[k] = i
   return o
 }, {})
-
-const BLOCK_EXPLORER_DOMAINS = {
-  1: 'etherscan.io',
-  3: 'ropsten.etherscan.io',
-  97: 'testnet.bscscan.com',
-}
-
-export const BLOCK_EXPLORER_DOMAIN = BLOCK_EXPLORER_DOMAINS[CHAIN_ID]
-
-const EXCHANGE_BASE_URIS = {
-  1: 'https://app.uniswap.org/#/swap?use=V2&',
-  3: 'https://app.uniswap.org/#/swap?use=V2&',
-  97: 'https://pancake.kiemtienonline360.com/#/swap?',
-}
-
-export const EXCHANGE_BASE_URI = EXCHANGE_BASE_URIS[CHAIN_ID]
 
 export const getExchangeUri = (operation = 'buy') =>
   operation === 'sell'

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { useAppContext } from '../context'
 import Button from './Button'
 import RedeemForm from './RedeemForm'
-import { amountFormatter, BLOCK_EXPLORER_DOMAIN } from '../utils'
+import { amountFormatter, BLOCK_EXPLORER_BASE_URI } from '../utils'
 
 import IncrementToken from './IncrementToken'
 import pac from './Gallery/pac.png'
@@ -74,7 +74,7 @@ export default function Redeem({ burn, balancePINO, setShowConnect, closeCheckou
   })
 
   function link(hash) {
-    return `https://${BLOCK_EXPLORER_DOMAIN}/tx/${hash}`
+    return `${BLOCK_EXPLORER_BASE_URI}/${hash}`
   }
 
   function renderContent() {

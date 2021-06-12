@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { BLOCK_EXPLORER_DOMAIN } from '../utils'
+import { BLOCK_EXPLORER_BASE_URI } from '../utils'
 import { Controls } from './Redeem'
 
 const WorksFrame = styled.div`
@@ -29,7 +29,7 @@ const Desc = styled.p`
 `
 
 export function link(hash) {
-  return `https://${BLOCK_EXPLORER_DOMAIN}/tx/${hash}`
+  return `${BLOCK_EXPLORER_BASE_URI}/${hash}`
 }
 
 export const EtherscanLink = styled.a`
