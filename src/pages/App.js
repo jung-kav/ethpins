@@ -2,21 +2,23 @@ import React from 'react'
 import Web3Provider, { Connectors } from 'web3-react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 
-import { CHAIN_ID, PROVIDER_URLS, SUPPORTED_CHAIN_IDS } from '../utils'
+import { CHAIN_ID, PROVIDER_URLS } from '../utils'
 import GlobalStyle, { ThemeProvider } from '../theme'
 import Web3ReactManager from '../components/Web3ReactManager'
 import AppProvider from '../context'
 import Main from './Main'
+
+const supportedChainIds = PROVIDER_URLS.keys()
 
 const { NetworkOnlyConnector, InjectedConnector } = Connectors
 
 const Network = new NetworkOnlyConnector({
   providerURL: PROVIDER_URLS[CHAIN_ID],
   defaultNetwork: CHAIN_ID,
-  supportedNetworks: SUPPORTED_CHAIN_IDS,
+  supportedNetworks: supportedChainIds,
   supportedNetworkURLs: PROVIDER_URLS,
 })
-const Injected = new InjectedConnector({ supportedChainIds: SUPPORTED_CHAIN_IDS })
+const Injected = new InjectedConnector({ supportedChainIds })
 
 const connectors = { Network, Injected }
 

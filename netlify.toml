@@ -13,6 +13,6 @@
   [context.production.environment]
     REACT_APP_CHAIN_ID = "3"
 
-[context.bnbtest]
-  [context.bnbtest.environment]
+[context."binance-testnet"]
+  [context."binance-testnet".environment]
     REACT_APP_CHAIN_ID = "97"
