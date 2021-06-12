@@ -25,7 +25,7 @@ const Shim = styled.div`
   height: 1rem;
 `
 
-export default function RedeemButton({ balancePINO }) {
+export default function BuySellButtons({ balancePINO }) {
   return (
     <ButtonsContainerFrame>
       <ButtonFrame
