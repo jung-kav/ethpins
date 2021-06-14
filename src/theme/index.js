@@ -16,7 +16,7 @@ export default createGlobalStyle`
 `
 
 const theme = {
-  uniswapPink: '#FE6DDE',
+  uniswapPink: '#00b3ff',
   primary: '#2B2B2B',
   secondary: '#F1F2F6',
   text: '#000',
@@ -25,8 +25,8 @@ const theme = {
   green: '#66BB66',
   grey: '#F1F2F6',
   blue: '#2F80ED',
-  white: '#FFF',
-  black: '#000'
+  white: '#000',
+  black: '#FFF'
 }
 
 const rotate = keyframes`
